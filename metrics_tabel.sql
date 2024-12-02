@@ -1,3 +1,12 @@
+CREATE TABLE sourcepop (
+    ccpageid BIGINT UNSIGNED NOT NULL, -- Stick to BIGINT UNSIGNED for storing large unique IDs 
+    name VARCHAR(255) NOT NULL,
+    party VARCHAR(255) DEFAULT NULL,
+    category VARCHAR(255) DEFAULT NULL,
+    country VARCHAR(100) DEFAULT NULL
+);
+
+
 CREATE TABLE metrics (
     ccpost_id DECIMAL(25,0) NOT NULL,
     ccpageid BIGINT UNSIGNED NOT NULL,
