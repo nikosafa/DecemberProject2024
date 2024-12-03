@@ -12,6 +12,17 @@ CREATE TABLE sourcepop (
     country VARCHAR(100) DEFAULT NULL
 );
 
+CREATE TABLE time (
+    ccpost_id DECIMAL(25,0) NOT NULL,          -- Large numeric ID for the post
+    date DATE NOT NULL,                        -- Date in 'YYYY-MM-DD' format
+    day TINYINT UNSIGNED NOT NULL,             -- Day of the month
+    month TINYINT UNSIGNED NOT NULL,           -- Month of the year
+    time TEXT NOT NULL,                    	   
+    yearweek TINYINT UNSIGNED NOT NULL,        -- Week number within the year
+    yearmonth CHAR(7) NOT NULL,                -- Year and month in 'YYYY-MM' format
+    yearquarter CHAR(6) NOT NULL,              -- Year and quarter in 'YYYYQ#' format
+    year SMALLINT UNSIGNED NOT NULL            -- Year in 'YYYY' format
+);
 
 CREATE TABLE metrics (
     ccpost_id DECIMAL(25,0) NOT NULL,
