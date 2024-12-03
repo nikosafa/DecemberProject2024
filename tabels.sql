@@ -1,3 +1,11 @@
+-- MySQL CMD commands
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/navn_på_cvs.csv'
+INTO TABLE tabel_name
+FIELDS TERMINATED BY ';'
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
 CREATE TABLE classification (
     ccpost_id DECIMAL(25,0) NOT NULL,
     all_post_text TEXT NOT NULL,
