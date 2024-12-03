@@ -1,3 +1,9 @@
+CREATE TABLE classification (
+    ccpost_id DECIMAL(25,0) NOT NULL,
+    all_post_text TEXT NOT NULL,
+    gpt_ukraine_for_imod VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE sourcepop (
     ccpageid BIGINT UNSIGNED NOT NULL, -- Stick to BIGINT UNSIGNED for storing large unique IDs 
     name VARCHAR(255) NOT NULL,
