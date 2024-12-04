@@ -31,6 +31,7 @@ app.get ('/chart2', (req, res) => {
             return;
         }
         res.json(result);
+        console.log(result);
     });
     });
 
