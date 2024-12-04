@@ -20,6 +20,26 @@ const connection = mysql.createConnection({
     database: "ukraine"
 });
 
+
+//Chart1
+app.get('/chart1', (req, res) => {
+    const query = 'SELECT category, SUM(total_interactions) AS total_interactions ' +
+        'FROM metrics ' +
+        'JOIN sourcepop ON metrics.ccpageid = sourcepop.ccpageid ' +
+        'GROUP BY category;';
+
+    connection.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error fetching ukraine data');
+            return;
+        }
+        res.json(result);
+    });
+});
+
+
+//Chart2
 app.get ('/chart2', (req, res) => {
     const query = 'SELECT post_type, SUM(total_interactions)\n' +
         'FROM metrics\n' +
