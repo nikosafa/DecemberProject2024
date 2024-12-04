@@ -17,6 +17,7 @@
             console.log('Fetched data:', data);
             console.log(data.post_type);
 
+
             //chart js
             //hapser dele af dataen til labels og til data
                 //inspiration til data.map fra chatGPT
