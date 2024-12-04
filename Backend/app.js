@@ -1,6 +1,6 @@
 const express = require('express');
-const mysql = require('mysql2');
-const cors = require('cors');
+const mysql = require('mysql2'); //npm install mysql2 --save
+const cors = require('cors'); //npm install cors --save
 const path = require('path');
 
 const app = express();
@@ -18,3 +18,14 @@ const connection = mysql.createConnection({
     password: process.env.DBPASSWORD,
     database: "ukraine"
 });
+
+
+app.get('/greetings', (req, res) => {
+    res.send('Hello this is a greeting');
+})
+
+app.listen(port, () => {
+    console.log("yay")
+})
+
+
