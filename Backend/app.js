@@ -1,3 +1,4 @@
+
 const express = require('express');
 const mysql = require('mysql2'); //npm install mysql2 --save
 const cors = require('cors'); //npm install cors --save
@@ -7,7 +8,7 @@ const app = express();
 const port = 3000;
 
 // Middleware
-app.use(express.static(path.join(__dirname, '../../../Frontend')));
+//app.use(express.static(path.join(__dirname, '../../../Frontend')));
 app.use(express.json());
 app.use(cors());
 
@@ -25,7 +26,7 @@ app.get('/greetings', (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log("yay")
+    console.log(port)
 })
 
 
