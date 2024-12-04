@@ -20,13 +20,23 @@ const connection = mysql.createConnection({
     database: "ukraine"
 });
 
+app.get ('/chart2', (req, res) => {
+    const query = 'SELECT post_type, SUM(total_interactions)\n' +
+        'FROM metrics\n' +
+        'GROUP BY post_type\n';
+    connection.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error fetching ukraine data');
+            return;
+        }
+        res.json(result);
+    });
+    });
 
-app.get('/greetings', (req, res) => {
-    res.send('Hello this is a greeting');
-})
 
 app.listen(port, () => {
-    console.log(port)
-})
+    console.log(`Server running on port ${port}`);
+});
 
 
