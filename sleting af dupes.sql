@@ -12,6 +12,8 @@ WHERE ccpost_id IN (
     ) AS temp
 );
 
+Tjek
+
 SELECT ccpost_id, COUNT(*) AS duplicate_count
 FROM metrics
 GROUP BY ccpost_id
