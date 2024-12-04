@@ -1,42 +1,51 @@
+// Function to toggle the display of the chart containers
+function toggleChart(chartId) {
+    const chartContainer = document.getElementById(chartId + '-container');
+    if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
+        chartContainer.style.display = 'block'; // Show the chart
+    } else {
+        chartContainer.style.display = 'none'; // Hide the chart
+    }
+}
+
 fetch('http://localhost:3000/chart1')
     .then((response) => {
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
-        return response.json(); // Convert the response to JSON
+        return response.json();
     })
     .then((data) => {
-        console.log('Fetched data for chart1:', data); // Log to check the fetched data
+        console.log('Fetched data for chart1:', data);
 
-        // Map the fetched data to labels and values
-        const labels = data.map(item => item.category);  // Categories for the x-axis
-        const values = data.map(item => item.total_interactions);  // Interactions for the y-axis
 
-        // Get the canvas context for chart1
+        const labels = data.map(item => item.category);
+        const values = data.map(item => item.total_interactions);
+
+
         const ctx1 = document.querySelector('#chart1').getContext('2d');
 
-        // Create the bar chart for chart1
         new Chart(ctx1, {
-            type: 'bar',  // Chart type: bar chart
+            type: 'bar',
             data: {
-                labels: labels,  // Labels for the x-axis
+                labels: labels,
                 datasets: [{
-                    label: 'Total Interactions by Category',  // Dataset label
-                    data: values,  // Data for the y-axis (total interactions)
+                    label: 'Total Interactions by Category',
+                    data: values,
                 }]
             },
             options: {
-                responsive: true,  // Make the chart responsive
+                responsive: true,
                 scales: {
                     y: {
-                        beginAtZero: true  // Start the y-axis at 0
+                        beginAtZero: true
                     }
                 }
             }
         });
     })
     .catch((error) => {
-        console.error('Error fetching data for chart1:', error);  // Log any errors
+        console.error('Error fetching data for chart1:', error);
     });
 
 
@@ -50,38 +59,38 @@ fetch('http://localhost:3000/chart2')
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
-        return response.json(); // Convert the response to JSON
+        return response.json();
     })
     .then((data) => {
-        console.log('Fetched data:', data); // Log the fetched data to check its format
+        console.log('Fetched data:', data);
 
         // Map the fetched data to labels and values
-        const labels = data.map(item => item.post_type);  // Extract post_type for the x-axis
-        const values = data.map(item => item['SUM(total_interactions)']);  // Extract total_interactions for the y-axis
+        const labels = data.map(item => item.post_type);
+        const values = data.map(item => item['SUM(total_interactions)']);
 
         // Get the canvas context for chart2
         const ctx = document.querySelector('#chart2').getContext('2d');
 
         // Create the line chart
         new Chart(ctx, {
-            type: 'bar',  // Line chart type
+            type: 'bar',
             data: {
-                labels: labels,  // Labels for the x-axis
+                labels: labels,
                 datasets: [{
-                    label: 'Interactions by Post Type',  // Label for the dataset
-                    data: values,  // Data for the y-axis (total interactions)
+                    label: 'Interactions by Post Type',
+                    data: values,
                 }]
             },
             options: {
-                responsive: true,  // Make the chart responsive
+                responsive: true,
                 scales: {
                     y: {
-                        beginAtZero: true  // Start the y-axis at 0
+                        beginAtZero: true
                     }
                 }
             }
         });
     })
     .catch((error) => {
-        console.error('Error fetching data:', error);  // Log any errors
+        console.error('Error fetching data:', error);
     });

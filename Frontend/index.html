@@ -5,28 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="stylesheet" href="style.css"/>
-    <title>Help ukraine</title>
-    <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js "></script>
+    <title>Analyzing Engagement for Ukraine</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
+<header>
+    <h1>Analyzing Engagement for Ukraine: Interactive Media Insights</h1>
+    <p>Explore how different categories and post types perform in terms of social media interactions.</p>
+</header>
+
 <main>
-    <div>
-        <h1>Chart 1</h1>
-        <canvas id="chart1"></canvas>
-    </div>
+    <section>
+        <h2>Total Interactions by Category</h2>
+        <button onclick="toggleChart('chart1')">Show/Hide Chart 1</button>
+        <div id="chart1-container" class="phone-frame" style="display:none;">
+            <canvas id="chart1"></canvas>
+        </div>
+    </section>
 
-    <div>
-        <h1>Chart 2</h1>
-        <canvas id="chart2" width="400" height="200"></canvas>
-    </div>
-
-
-
-
+    <section>
+        <h2>Interactions Across Post Types</h2>
+        <button onclick="toggleChart('chart2')">Show/Hide Chart 2</button>
+        <div id="chart2-container" class="phone-frame" style="display:none;">
+            <canvas id="chart2" width="400" height="200"></canvas>
+        </div>
+    </section>
 </main>
+
 <script src="main.js"></script>
 </body>
 </html>
-
-
