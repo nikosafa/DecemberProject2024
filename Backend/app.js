@@ -43,7 +43,8 @@ app.get('/chart1', (req, res) => {
 app.get ('/chart2', (req, res) => {
     const query = 'SELECT post_type, SUM(total_interactions)\n' +
         'FROM metrics\n' +
-        'GROUP BY post_type\n';
+        'GROUP BY post_type\n' +
+        'limit 7';
     connection.query(query, (err, result) => {
         if (err) {
             console.error(err);
