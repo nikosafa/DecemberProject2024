@@ -23,10 +23,10 @@ const connection = mysql.createConnection({
 
 //Chart1
 app.get('/chart1', (req, res) => {
-    const query = 'SELECT category, SUM(total_interactions) AS total_interactions ' +
-        'FROM metrics ' +
-        'JOIN sourcepop ON metrics.ccpageid = sourcepop.ccpageid ' +
-        'GROUP BY category;';
+    const query = ';SELECT category, SUM(total_interactions) AS total_interactions ' +
+    'FROM metrics ' +
+    'JOIN sourcepop ON metrics.ccpageid = sourcepop.ccpageid ' +
+    'GROUP BY category';
 
     connection.query(query, (err, result) => {
         if (err) {
@@ -56,6 +56,7 @@ app.get ('/chart2', (req, res) => {
     });
     });
 
+//chart 3
 app.get ('/chart3', (req, res) => {
     const query = 'SELECT \n' +
         '    country, \n' +
@@ -89,6 +90,8 @@ app.get ('/chart3', (req, res) => {
     });
 });
 
+
+//chart 4
 app.get ('/chart4', (req, res) => {
     const query = 'SELECT \n' +
         '    sourcepop.category,\n' +
@@ -115,6 +118,44 @@ app.get ('/chart4', (req, res) => {
     });
 });
 
+//chart 5 - støtte til ukraine over tid
+app.get ('/chart4', (req, res) => {
+    const query = app.get ('/chart4', (req, res) => {
+        const query = 'SELECT \n' +
+            '    sourcepop.category,\n' +
+            '    sourcepop.country,\n' +
+            '    metrics.post_type,\n' +
+            '    metrics.total_interactions\n' +
+            'FROM \n' +
+            '    metrics\n' +
+            'JOIN \n' +
+            '    sourcepop\n' +
+            'ON \n' +
+            '    metrics.ccpageid = sourcepop.ccpageid\n' +
+            'ORDER BY \n' +
+            '    metrics.total_interactions DESC\n' +
+            'LIMIT 10;\n';
+        connection.query(query, (err, result) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error fetching ukraine data');
+                return;
+            }
+            res.json(result);
+            console.log(result);
+        });
+    });;
+
+    connection.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error fetching ukraine data');
+            return;
+        }
+        res.json(result);
+        console.log(result);
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

@@ -5,7 +5,7 @@ body {
     background-color: #f4f4f4;
 }
 
-header {
+header, footer {
     background-color: #486aef;
     color: white;
     padding: 20px;
