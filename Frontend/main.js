@@ -155,7 +155,7 @@ function getPostTypeColor(postType) {
         photo: 'blue',
         share: 'green',
     };
-    return postTypeColors[postType] //|| 'gray'; // Default to gray if post type is not found
+    return postTypeColors[postType] || 'transparent'; // Default to gray if post type is not found
 }
 
 
