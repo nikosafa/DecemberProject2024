@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css"/>
     <title>Analyzing Engagement for Ukraine</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+
 </head>
 <body>
 
@@ -31,6 +32,24 @@
             <canvas id="chart2"></canvas>
         </div>
     </section>
+
+    <section>
+        <h2>Interactions Across Post Types</h2>
+        <button onclick="toggleChart('chart3')">Show/Hide Chart 3</button>
+        <div id="chart3-container" class="computer-frame" style="display:none;">
+            <canvas id="chart3"></canvas>
+        </div>
+    </section>
+
+    <section>
+        <h2>Interactions Across Post Types</h2>
+        <button onclick="toggleChart('chart4')">Show/Hide Chart 4</button>
+        <div id="chart4-container" class="computer-frame" style="display:none;">
+            <canvas id="chart4"></canvas>
+        </div>
+    </section>
+
+
 </main>
 
 <script src="main.js"></script>
