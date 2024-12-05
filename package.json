@@ -12,6 +12,8 @@
   },
   "private": true,
   "dependencies": {
+    "chart.js": "^4.4.7",
+    "chartjs-chart-geo": "^4.3.4",
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "mysql2": "^3.11.5",

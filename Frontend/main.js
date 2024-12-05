@@ -76,3 +76,91 @@ fetch('http://localhost:3000/chart2')
         });
     })
     .catch(error => console.error('Error fetching data for Chart 2:', error));
+
+
+// Function to toggle visibility of charts and map
+function toggleChart(chartId) {
+    const chartContainer = document.getElementById(chartId + '-container');
+    if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
+        chartContainer.style.display = 'block'; // Show the chart or map
+        if (chartId === 'chart3') {
+            initMap(); // Initialize map only when chart3 is shown
+        }
+    } else {
+        chartContainer.style.display = 'none'; // Hide the chart or map
+    }
+}
+
+// Initialize the map for Chart 3
+function initMap() {
+    // Fetch data for chart3
+    fetch('http://localhost:3000/chart3')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+            return response.json();
+        })
+        .then(data => {
+            // Initialize the map centered on Europe
+            const map = L.map('map').setView([54.5260, 15.2551], 4); // Adjust the zoom level for Europe
+
+            // Add OpenStreetMap tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Load GeoJSON data for countries (make sure you have a correct GeoJSON URL or path)
+            fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
+                .then(response => response.json())
+                .then(geojson => {
+                    // Add GeoJSON data to the map
+                    L.geoJSON(geojson, {
+                        style: function (feature) {
+                            const countryData = data.find(country => country.country === feature.properties.name);
+                            const color = countryData ? getPostTypeColor(countryData.post_type) : 'transparent'; // Default to gray
+
+                            return {
+                                fillColor: color,
+                                weight: countryData ? 1 : 0, // Remove border if no color
+                                opacity: 1,
+                                color: 'black',
+                                fillOpacity: 0.7
+                            };
+                        },
+                        onEachFeature: function (feature, layer) {
+                            // Bind a popup to show country and post type information
+                            const countryData = data.find(country => country.country === feature.properties.name);
+                            if (countryData) {
+                                layer.bindPopup(`
+                                    <b>${countryData.country}</b><br>
+                                    Post Type: ${countryData.post_type}<br>
+                                    Total Interactions: ${countryData.total_interactions.toLocaleString()}
+                                `);
+                            }
+                        }
+                    }).addTo(map);
+
+                    // Adjust the map to fit the container after adding GeoJSON
+                    map.invalidateSize();
+                })
+                .catch(error => console.error('Error loading GeoJSON data:', error));
+        })
+        .catch(error => console.error('Error fetching data for Chart 3:', error));
+}
+
+// Helper function to get the color for each post type
+function getPostTypeColor(postType) {
+    const postTypeColors = {
+        video: 'red',
+        photo: 'blue',
+        share: 'green',
+    };
+    return postTypeColors[postType] //|| 'gray'; // Default to gray if post type is not found
+}
+
+const countryData = data.find(country => country.country === feature.properties.name);
+
+// Handle Wales as part of the United Kingdom
+if (feature.properties.name === "United Kingdom" && countryData.country === "Wales") {
+    // Custom handling for Wales
+}
