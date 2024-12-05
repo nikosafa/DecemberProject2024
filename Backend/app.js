@@ -58,6 +58,39 @@ app.get ('/chart2', (req, res) => {
 
 app.get ('/chart3', (req, res) => {
     const query = 'SELECT \n' +
+        '    country, \n' +
+        '    post_type, \n' +
+        '    total_interactions\n' +
+        'FROM (\n' +
+        '    SELECT \n' +
+        '        sourcepop.country, \n' +
+        '        metrics.post_type, \n' +
+        '        SUM(metrics.total_interactions) AS total_interactions,\n' +
+        '        RANK() OVER (PARTITION BY sourcepop.country ORDER BY SUM(metrics.total_interactions) DESC) AS rankC\n' +
+        '    FROM\n' +
+        '        metrics \n' +
+        '    JOIN \n' +
+        '        sourcepop\n' +
+        '    ON \n' +
+        '        metrics.ccpageid = sourcepop.ccpageid\n' +
+        '    GROUP BY \n' +
+        '        sourcepop.country, \n' +
+        '        metrics.post_type\n' +
+        ') ranked_data\n' +
+        'WHERE rankC = 1;'
+    connection.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error fetching ukraine data');
+            return;
+        }
+        res.json(result);
+        console.log(result);
+    });
+});
+
+app.get ('/chart4', (req, res) => {
+    const query = 'SELECT \n' +
         '    sourcepop.category,\n' +
         '    sourcepop.country,\n' +
         '    metrics.post_type,\n' +
