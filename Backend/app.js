@@ -23,7 +23,7 @@ const connection = mysql.createConnection({
 
 //Chart1
 app.get('/chart1', (req, res) => {
-    const query = ';SELECT category, SUM(total_interactions) AS total_interactions ' +
+    const query = 'SELECT category, SUM(total_interactions) AS total_interactions ' +
     'FROM metrics ' +
     'JOIN sourcepop ON metrics.ccpageid = sourcepop.ccpageid ' +
     'GROUP BY category';
@@ -118,23 +118,20 @@ app.get ('/chart4', (req, res) => {
     });
 });
 
+
 //chart 5 - støtte til ukraine over tid
-app.get ('/chart4', (req, res) => {
-    const query = app.get ('/chart4', (req, res) => {
+app.get ('/chart5', (req, res) => {
         const query = 'SELECT \n' +
-            '    sourcepop.category,\n' +
-            '    sourcepop.country,\n' +
-            '    metrics.post_type,\n' +
-            '    metrics.total_interactions\n' +
-            'FROM \n' +
-            '    metrics\n' +
-            'JOIN \n' +
-            '    sourcepop\n' +
-            'ON \n' +
-            '    metrics.ccpageid = sourcepop.ccpageid\n' +
-            'ORDER BY \n' +
-            '    metrics.total_interactions DESC\n' +
-            'LIMIT 10;\n';
+            '\ttime.year,\n' +
+            '\tclassification.gpt_ukraine_for_imod,\n' +
+            '\tCOUNT(classification.ccpost_id) \n' +
+            '    as post_count\n' +
+            'FROM classification\n' +
+            '\t\n' +
+            'JOIN time ON classification.ccpost_id = time.ccpost_id\n' +
+            'GROUP BY gpt_ukraine_for_imod, time.year\n' +
+            'ORDER BY time.year;'
+
         connection.query(query, (err, result) => {
             if (err) {
                 console.error(err);
@@ -144,18 +141,8 @@ app.get ('/chart4', (req, res) => {
             res.json(result);
             console.log(result);
         });
-    });;
-
-    connection.query(query, (err, result) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Error fetching ukraine data');
-            return;
-        }
-        res.json(result);
-        console.log(result);
     });
-});
+
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

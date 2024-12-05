@@ -76,3 +76,62 @@ fetch('http://localhost:3000/chart2')
         });
     })
     .catch(error => console.error('Error fetching data for Chart 2:', error));
+
+
+
+
+//fechting data for chart 5 - støtte til ukraine m gpt over time
+fetch('http://localhost:3000/chart5')
+    .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+        return response.json();
+    })
+    .then(data => {
+        //gruppere data i for og imod
+        //ide til følgende linje kommer fra chatGPT
+            // laver et array af årene hvor hvert år kun optræder en gang, fordi der er flere rækker med samme år (for og imod for hvert år)
+        const years = [...new Set(data.map(item => item.year))];
+
+        //itereger gennem arrayet og finder alle for+imod
+            //d er et enkelt object
+        const forData = years.map(year => {
+            const item = data.find(data => data.year === year && data.gpt_ukraine_for_imod === "for");
+            return item ? item.post_count : 0;
+        });
+
+        const imodData = years.map(year => {
+            const item = data.find(d => d.year === year && d.gpt_ukraine_for_imod === "imod");
+            return item ? item.post_count : 0;
+        });
+
+
+        const ctx = document.querySelector('#chart5').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [
+                {
+                    label: 'For',
+                    data: forData,
+                    borderColor: '#556B2F',
+
+                },
+                    {
+                        label: 'Imod',
+                        data: imodData,
+                        borderColor: '#800020'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    })
+    .catch(error => console.error('Error fetching data for Chart 5:', error));
