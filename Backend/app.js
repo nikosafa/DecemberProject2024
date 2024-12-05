@@ -59,7 +59,11 @@ app.get ('/chart2', (req, res) => {
 //chart 3
 app.get ('/chart3', (req, res) => {
     const query = 'SELECT \n' +
-        '    country, \n' +
+        '    CASE \n' +
+        '        WHEN country = \'Schweiz\' THEN \'Switzerland\'\n' +
+        '        WHEN country = \'Wales\' THEN \'United Kingdom\'\n' +
+        '        ELSE country\n' +
+        '    END AS country,\n' +
         '    post_type, \n' +
         '    total_interactions\n' +
         'FROM (\n' +
@@ -78,7 +82,7 @@ app.get ('/chart3', (req, res) => {
         '        sourcepop.country, \n' +
         '        metrics.post_type\n' +
         ') ranked_data\n' +
-        'WHERE rankC = 1;'
+        'WHERE rankC = 1;\n'
     connection.query(query, (err, result) => {
         if (err) {
             console.error(err);
