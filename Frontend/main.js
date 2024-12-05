@@ -158,15 +158,6 @@ function getPostTypeColor(postType) {
     return postTypeColors[postType] //|| 'gray'; // Default to gray if post type is not found
 }
 
-const countryData = data.find(country => country.country === feature.properties.name);
-
-// Handle Wales as part of the United Kingdom
-if (feature.properties.name === "United Kingdom" && countryData.country === "Wales") {
-    // Custom handling for Wales
-}
-
-
-
 
 //fechting data for chart 5 - støtte til ukraine m gpt over time
 fetch('http://localhost:3000/chart5')
@@ -183,7 +174,7 @@ fetch('http://localhost:3000/chart5')
         //itereger gennem arrayet og finder alle for+imod
         //d er et enkelt object
         const forData = years.map(year => {
-            const item = data.find(data => data.year === year && data.gpt_ukraine_for_imod === "for");
+            const item = data.find(d => d.year === year && d.gpt_ukraine_for_imod === "for");
             return item ? item.post_count : 0;
         });
 
@@ -191,7 +182,6 @@ fetch('http://localhost:3000/chart5')
             const item = data.find(d => d.year === year && d.gpt_ukraine_for_imod === "imod");
             return item ? item.post_count : 0;
         });
-
 
         const ctx = document.querySelector('#chart5').getContext('2d');
         new Chart(ctx, {
