@@ -78,6 +78,9 @@ fetch('http://localhost:3000/chart2')
     .catch(error => console.error('Error fetching data for Chart 2:', error));
 
 
+
+
+
 // Function to toggle visibility of charts and map
 function toggleChart(chartId) {
     const chartContainer = document.getElementById(chartId + '-container');
@@ -157,6 +160,63 @@ function getPostTypeColor(postType) {
     };
     return postTypeColors[postType] || 'transparent'; // Default to gray if post type is not found
 }
+
+
+// Fetch data for Chart 4
+fetch('http://localhost:3000/chart4')
+    .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+        return response.json();
+    })
+    .then(data => {
+        // Extract labels and values
+        const labels = data.map(item => `${item.category} (${item.country})`); // Combine category and country
+        const values = data.map(item => item.total_interactions); // Total interactions
+
+        // Chart configuration
+        const ctx = document.querySelector('#chart4').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Total Interactions',
+                    data: values,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Category (Country)'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Total Interactions'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return `Interactions: ${context.raw}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    })
+    .catch(error => console.error('Error fetching data for Chart 4:', error));
 
 
 //fechting data for chart 5 - støtte til ukraine m gpt over time
