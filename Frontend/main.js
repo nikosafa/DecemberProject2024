@@ -77,10 +77,6 @@ fetch('http://localhost:3000/chart2')
     })
     .catch(error => console.error('Error fetching data for Chart 2:', error));
 
-
-
-
-
 // Function to toggle visibility of charts and map
 function toggleChart(chartId) {
     const chartContainer = document.getElementById(chartId + '-container');
@@ -103,8 +99,28 @@ function initMap() {
             return response.json();
         })
         .then(data => {
-            // Initialize the map centered on Europe
-            const map = L.map('map').setView([54.5260, 15.2551], 4); // Adjust the zoom level for Europe
+            // Initialize the map centered on Europe, with interactions disabled
+            const map = L.map('map', {
+                scrollWheelZoom: false,
+                doubleClickZoom: false,
+                boxZoom: false,
+                keyboard: false,
+                zoomControl: true // Enable zoom control
+            }).setView([49.5260, 16.2551], 4); // Default zoom level for Europe
+
+            // Add a legend to the map
+            const legend = L.control({ position: 'bottomleft' }); // Choose position: 'topleft', 'topright', 'bottomleft', 'bottomright'
+
+            legend.onAdd = function () {
+                const div = L.DomUtil.create('div', 'legend'); // Create a div with a class "legend"
+                div.innerHTML = `
+                    <h4>Post Types</h4>
+                    <i style="background: red"></i> Video<br>
+                    <i style="background: blue"></i> Photo<br>
+                    <i style="background: green"></i> Share<br>`;
+                return div;
+            };
+            legend.addTo(map);
 
             // Add OpenStreetMap tile layer
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -112,7 +128,7 @@ function initMap() {
                 maxZoom: 19
             }).addTo(map);
 
-            // Load GeoJSON data for countries (make sure you have a correct GeoJSON URL or path)
+            // Load GeoJSON data for countries
             fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
                 .then(response => response.json())
                 .then(geojson => {
@@ -120,25 +136,47 @@ function initMap() {
                     L.geoJSON(geojson, {
                         style: function (feature) {
                             const countryData = data.find(country => country.country === feature.properties.name);
-                            const color = countryData ? getPostTypeColor(countryData.post_type) : 'transparent'; // Default to gray
+                            let color = 'transparent'; // Default to transparent if no data
 
+                            if (feature.properties.name === 'United Kingdom') {
+                                color = countryData ? getPostTypeColor(countryData.post_type) : 'transparent';
+                            } else {
+                                color = countryData ? getPostTypeColor(countryData.post_type) : 'transparent';
+                            }
                             return {
                                 fillColor: color,
-                                weight: countryData ? 1 : 0, // Remove border if no color
+                                weight: countryData ? 1 : 0, // Remove border if no data
                                 opacity: 1,
                                 color: 'black',
                                 fillOpacity: 0.7
                             };
                         },
                         onEachFeature: function (feature, layer) {
-                            // Bind a popup to show country and post type information
                             const countryData = data.find(country => country.country === feature.properties.name);
+
+                            // Zoom-in on Malta on hover
+                            if (feature.properties.name === 'Malta') {
+                                layer.on('mouseover', function () {
+                                    map.setView(layer.getBounds().getCenter(), 7); // Zoom in on Malta when hovered
+                                });
+                                layer.on('mouseout', function () {
+                                    map.setView([49.5260, 16.2551], 4); // Zoom back to the default view when mouse leaves
+                                });
+                            }
+
+                            // Hvis landet er Storbritannien, ændres tooltip-titlen til Wales
+                            let tooltipTitle = feature.properties.name; // Default to country name
+                            if (feature.properties.name === 'United Kingdom') {
+                                tooltipTitle = 'Wales'; // Change to Wales for United Kingdom
+                            }
+
+                            // Kun tilføj tooltip, hvis landet findes i data
                             if (countryData) {
-                                layer.bindPopup(`
-                                    <b>${countryData.country}</b><br>
+                                layer.bindTooltip(`
+                                    <b>${tooltipTitle}</b><br>  <!-- Vis "Wales" i stedet for "United Kingdom" -->
                                     Post Type: ${countryData.post_type}<br>
                                     Total Interactions: ${countryData.total_interactions.toLocaleString()}
-                                `);
+                                `, { sticky: true }); // `sticky` gør, at tooltip følger musen
                             }
                         }
                     }).addTo(map);
@@ -158,9 +196,8 @@ function getPostTypeColor(postType) {
         photo: 'blue',
         share: 'green',
     };
-    return postTypeColors[postType] || 'transparent'; // Default to gray if post type is not found
+    return postTypeColors[postType] || 'transparent'; // Default to transparent if post type is not found
 }
-
 
 // Fetch data for Chart 4
 fetch('http://localhost:3000/chart4')

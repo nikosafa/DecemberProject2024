@@ -253,3 +253,28 @@ footer {
     padding: 20px;
     text-align: center;
 }
+
+.legend {
+    background: white;
+    padding: 10px;
+    line-height: 1.5;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    font-size: 12px;
+}
+
+.legend h4 {
+    margin: 0 0 5px;
+    font-weight: bold;
+}
+
+.legend i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    vertical-align: middle;
+    border-radius: 2px;
+    border: 1px solid black;
+}
+
