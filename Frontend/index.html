@@ -9,17 +9,22 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
 
-    </head>
-    <body>
+<header>
+    <div class="background-image">
+        <img src="https://scontent-cph2-1.xx.fbcdn.net/v/t39.30808-6/333945797_732183314950988_8415768032751792368_n.png?_nc_cat=102&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=hIa_xiCZddkQ7kNvgGlrKXj&_nc_zt=23&_nc_ht=scontent-cph2-1.xx&_nc_gid=AUxb1z1q6WxvpnHuQVaOFy4&oh=00_AYAuDhB9gbpgZyRvMiVpuqSWeJP3S-ndEmkZPEKRCgUukA&oe=67574164" alt="Background Image">
+    </div>
+    <div class="header-content">
+        <h1>Interactive Media Insights</h1>
+        <p>Explore how different categories and post types perform in terms of social media interactions</p>
+    </div>
+</header>
 
-    <header>
-        <h1>Analyzing Engagement for Ukraine: Interactive Media Insights</h1>
-        <p>Explore how different categories and post types perform in terms of social media interactions.</p>
-    </header>
-
-    <main>
-        <section>
+<main>
+    <div class="content-grid">
+        <section class="content-item">
             <h2>Total Interactions by Category</h2>
             <button onclick="toggleChart('chart1')">Show/Hide Chart 1</button>
             <div id="chart1-container" class="computer-frame" style="display:none;">
@@ -27,7 +32,7 @@
             </div>
         </section>
 
-        <section>
+        <section class="content-item">
             <h2>Interactions Across Post Types</h2>
             <button onclick="toggleChart('chart2')">Show/Hide Chart 2</button>
             <div id="chart2-container" class="computer-frame" style="display:none;">
@@ -35,16 +40,15 @@
             </div>
         </section>
 
-        <section>
+        <section class="content-item">
             <h2>Interactions Across Post Types</h2>
             <button onclick="toggleChart('chart3')">Show/Hide Chart 3</button>
             <div id="chart3-container" class="computer-frame" style="display:none;">
-                <!-- Map container added here -->
-                <div id="map" style="height: 100%;"></div> <!-- Set a height for the map -->
+                <div id="map"></div> <!-- Updated map container -->
             </div>
         </section>
 
-        <section>
+        <section class="content-item">
             <h2>Interactions Across Post Types</h2>
             <button onclick="toggleChart('chart4')">Show/Hide Chart 4</button>
             <div id="chart4-container" class="computer-frame" style="display:none;">
@@ -52,22 +56,20 @@
             </div>
         </section>
 
-    <section>
-        <h2>Support to Ukraine on FaceBook over time</h2>
-        <button onclick="toggleChart('chart5')">Show/Hide Chart 5</button>
-        <div id="chart5-container" class="computer-frame" style="display:none;">
-            <canvas id="chart5"></canvas>
-        </div>
-    </section>
-
-    </main>
+        <section class="content-item">
+            <h2>Support to Ukraine on FaceBook over time</h2>
+            <button onclick="toggleChart('chart5')">Show/Hide Chart 5</button>
+            <div id="chart5-container" class="computer-frame" style="display:none;">
+                <canvas id="chart5"></canvas>
+            </div>
+        </section>
+    </div>
+</main>
 
 
 <footer>
-    <p>Made by Nikoletta, Jonas and Linea</p>
+    <p>Made by Nikoleta, Jonas and Linea</p>
 </footer>
-
-
 
 <script src="main.js"></script>
 </body>

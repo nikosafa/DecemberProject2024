@@ -5,15 +5,77 @@ body {
     background-color: #f4f4f4;
 }
 
-header, footer {
-    background-color: #486aef;
+header {
+    position: relative;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.background-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
     color: white;
     padding: 20px;
-    text-align: center;
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 h1 {
     margin: 0;
+    color: white;
+    font-size: 2.5rem;
+}
+
+p {
+    margin: 0;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 50px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.content-item {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 button {
@@ -23,26 +85,20 @@ button {
     padding: 10px 20px;
     font-size: 1rem;
     cursor: pointer;
-    margin-bottom: 20px;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 button:hover {
     background-color: #486aef;
 }
 
-main {
-    padding: 20px;
-    margin-top: 30px;
-}
-
 .computer-frame {
-    position: relative;
-    width: 800px;
-    height: 600px;
+    width: 600px;
+    height: 450px;
     border: 15px solid #333;
     border-radius: 10px;
-    margin: 50px auto;
+    margin: 30px auto;
     background-color: #f5f5f5;
     display: flex;
     justify-content: center;
@@ -50,35 +106,14 @@ main {
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-.computer-frame:before {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 10px;
-    background-color: #333;
-    border-radius: 5px;
+#map {
+    width: 100%;
+    height: 100%;
 }
 
-.computer-frame:after {
-    content: '';
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 20px;
-    background-color: #444;
-    border-radius: 5px;
+footer {
+    background-color: #486aef;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
-
-canvas {
-    width: 90%;
-    height: 90%;
-    max-width: 90%;
-    max-height: 90%;
-}
-
-
