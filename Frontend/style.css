@@ -89,9 +89,33 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
-    background-color: #486aef;
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 15px; /* Space between buttons */
+    justify-content: center; /* Center align the grid */
+    align-items: center; /* Vertically align the buttons */
+    margin-top: 20px;
 }
+
+.button-grid button {
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #486aef;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-grid button:hover {
+    background-color: #3656d1;
+}
+
 
 .computer-frame {
     width: 600px;
