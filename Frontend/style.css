@@ -277,12 +277,6 @@ button {
 }
 
 
-footer {
-    background-color: #486aef;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
 
 .legend {
     background: white;
@@ -308,3 +302,15 @@ footer {
     border: 1px solid black;
 }
 
+
+
+footer {
+    color: white;
+    margin-top: 50px;
+    position: relative;
+    height: 300px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
