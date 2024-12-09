@@ -22,49 +22,34 @@
     </div>
 </header>
 
+
 <main>
     <div class="content-grid">
         <section class="content-item">
-            <h2>Total Interactions by Category</h2>
-            <button onclick="toggleChart('chart1')">Show/Hide Chart 1</button>
-            <div id="chart1-container" class="computer-frame" style="display:none;">
+            <h2>Chart Navigation</h2>
+            <div class="button-grid">
+                <button onclick="toggleChart('chart1')">Total Interactions by Category</button>
+                <button onclick="toggleChart('chart2')">Interactions Across Post Types</button>
+                <button onclick="toggleChart('chart3')">Map of Interactions</button>
+                <button onclick="toggleChart('chart4')">Category & Country Insights</button>
+            </div>
+            <div id="chart1-container" class="computer-frame" style="display: none;">
                 <canvas id="chart1"></canvas>
             </div>
-        </section>
-
-        <section class="content-item">
-            <h2>Interactions Across Post Types</h2>
-            <button onclick="toggleChart('chart2')">Show/Hide Chart 2</button>
-            <div id="chart2-container" class="computer-frame" style="display:none;">
+            <div id="chart2-container" class="computer-frame" style="display: none;">
                 <canvas id="chart2"></canvas>
             </div>
-        </section>
-
-        <section class="content-item">
-            <h2>Interactions Across Post Types</h2>
-            <button onclick="toggleChart('chart3')">Show/Hide Chart 3</button>
-            <div id="chart3-container" class="computer-frame" style="display:none;">
-                <div id="map"></div> <!-- Updated map container -->
+            <div id="chart3-container" class="computer-frame" style="display: none;">
+                <div id="map"></div>
             </div>
-        </section>
-
-        <section class="content-item">
-            <h2>Interactions Across Post Types</h2>
-            <button onclick="toggleChart('chart4')">Show/Hide Chart 4</button>
-            <div id="chart4-container" class="computer-frame" style="display:none;">
+            <div id="chart4-container" class="computer-frame" style="display: none;">
                 <canvas id="chart4"></canvas>
-            </div>
-        </section>
-
-        <section class="content-item">
-            <h2>Support to Ukraine on FaceBook over time</h2>
-            <button onclick="toggleChart('chart5')">Show/Hide Chart 5</button>
-            <div id="chart5-container" class="computer-frame" style="display:none;">
-                <canvas id="chart5"></canvas>
             </div>
         </section>
     </div>
 </main>
+
+
 
 
 <footer>
