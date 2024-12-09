@@ -135,6 +135,118 @@ button {
     height: 100%;
 }
 
+.deep-dive-section {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #ffffff; /* Background color for contrast */
+    margin-top: 30px; /* Space between sections */
+}
+
+.deep-dive-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.deep-dive-section p {
+    font-size: 1.25rem;
+    color: #666;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.screenshot-gallery {
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+}
+
+.screenshot-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.screenshot-row img {
+    width: 45%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+.change-suggestions-section {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #f5f5f5; /* Light gray background for contrast */
+    margin-top: 30px; /* Space between sections */
+}
+
+.change-suggestions-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.change-suggestions-section p {
+    font-size: 1.25rem;
+    color: #666;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.phone-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.phone {
+    width: 300px; /* Adjust as needed */
+    height: 600px; /* Adjust as needed */
+    border: 1px solid #ddd; /* Phone border */
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4; /* Placeholder background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swipe-button {
+    background-color: #486aef;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.swipe-button:hover {
+    background-color: #4a72f0;
+}
+
+
 footer {
     background-color: #486aef;
     color: white;
