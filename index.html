@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="Frontend/style.css"/>
+    <title>Analyzing Engagement for Ukraine</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+<header>
+    <div class="background-image">
+        <img src="Frontend/Background.png" height="1080" width="1920"/></div>
+    <div class="header-content">
+        <h1>Interactive Media Insights</h1>
+        <p>Explore how different categories and post types perform in terms of social media interactions</p>
+    </div>
+</header>
+
+<div class="deep-dive-section">
+    <h2>Deep Dive into PR Army's Social Media</h2>
+    <p>
+        We observe an inconsistency in posting across their various platforms. This section highlights examples from their website and demonstrates the disparities in communication strategies and engagement efforts.
+    </p>
+    <div class="screenshot-gallery">
+        <div class="screenshot-row">
+            <img src="Frontend/Screenshot1.png" alt="Screenshot example 1">
+            <img src="Frontend/Screenshot2.png" alt="Screenshot example 2">
+        </div>
+        <div class="screenshot-row">
+            <img src="Frontend/Screenshot3.png" alt="Screenshot example 3">
+            <img src="Frontend/Screenshot4.png" alt="Screenshot example 4">
+        </div>
+    </div>
+</div>
+
+
+
+
+<main>
+    <div class="content-grid">
+        <section class="content-item">
+            <h2>Learn from charts</h2>
+            <div class="button-grid">
+                <button onclick="toggleChart('chart1')">Total Interactions by Category</button>
+                <button onclick="toggleChart('chart2')">Interactions Across Post Types</button>
+                <button onclick="toggleChart('chart3')">Map of Interactions</button>
+                <button onclick="toggleChart('chart4')">Category & Country Insights</button>
+            </div>
+            <div id="chart1-container" class="computer-frame" style="display: none;">
+                <canvas id="chart1"></canvas>
+                <p> In Europe, the media gets the most interactions on FaceBook.
+                    Let's figure out what they're doing rigth!</p>
+            </div>
+            <div id="chart2-container" class="computer-frame" style="display: none;">
+                <canvas id="chart2"></canvas>
+                <p>Overall, we see that visual posts reach are more popular.</p>
+            </div>
+            <div id="chart3-container" class="computer-frame" style="display: none;">
+                <div id="map"></div>
+            </div>
+            <div id="chart4-container" class="computer-frame" style="display: none;">
+                <canvas id="chart4"></canvas>
+                <p>Even trough the medias posts perform better overall on FaceBook the top 9 posts about Ukraine in Europe are all from political sources. </p>
+            </div>
+        </section>
+    </div>
+</main>
+
+<section id="opinion-on-ukraine">
+        <h2>People are not on Ukraine's side anymore</h2>
+        <p>The support to Ukraine is decreasing on FaceBook. The users on FaceBook are no longer talking about Ukraine. We made you a new so-me strategy to gain more support to Ukraine.</p>
+    <div id="chart5-container">
+        <canvas id="chart5"></canvas>
+
+    </div>
+</section>
+
+<div class="change-suggestions-section">
+    <h2>What Could Be Changed?</h2>
+    <p>
+        We notice inconsistency in posting dates and that albums are the main post type on Facebook and Instagram. This contrasts with data showing that albums have one of the lowest interaction rates. The big opportunity lies in shifting to short-form content, which tends to drive higher engagement.
+    </p>
+</div>
+
+<div class="phone-container">
+    <div class="phone">
+        <!-- Placeholder for video -->
+        <div class="video-placeholder">
+            <!-- Embed or placeholder for video -->
+            <!-- You can replace this with an actual video element or iframe -->
+        </div>
+        <!-- Bottom button -->
+        <button class="swipe-button">Swipe</button>
+    </div>
+</div>
+
+
+
+<footer>
+    <p>Made by Nikoleta, Jonas and Linea</p>
+    <div class="background-image">
+        <img src="https://scontent-cph2-1.xx.fbcdn.net/v/t39.30808-6/333945797_732183314950988_8415768032751792368_n.png?_nc_cat=102&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=hIa_xiCZddkQ7kNvgGlrKXj&_nc_zt=23&_nc_ht=scontent-cph2-1.xx&_nc_gid=AUxb1z1q6WxvpnHuQVaOFy4&oh=00_AYAuDhB9gbpgZyRvMiVpuqSWeJP3S-ndEmkZPEKRCgUukA&oe=67574164" alt="Background Image">
+    </div>
+</footer>
+
+<script src="Frontend/main.js"></script>
+</body>
+</html>
