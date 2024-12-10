@@ -7,6 +7,11 @@ function toggleChart(chartId) {
     }
 }
 
+//forsøg på at der kommer forklarende tekst op når man trykker på billederne
+
+
+
+
 // Fetch data for Chart 1
 fetch('http://localhost:3000/chart1')
     .then(response => {
