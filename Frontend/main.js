@@ -332,3 +332,14 @@ fetch('http://localhost:3000/chart5')
         });
     })
     .catch(error => console.error('Error fetching data for Chart 5:', error));
+
+const images = ["Frontend/Screenshot1.png", "Frontend/Screenshot2.png", "Frontend/Screenshot3.png"]; // List of image URLs
+let currentIndex = 0;
+
+function nextImage() {
+    // Increment the index
+    currentIndex = (currentIndex + 1) % images.length; // Loop back to the first image
+    // Update the image source
+    document.getElementById("phone-image").src = images[currentIndex];
+}
+
