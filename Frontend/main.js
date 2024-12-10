@@ -34,7 +34,15 @@ fetch('http://localhost:3000/chart1')
                 responsive: true,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    x: {
+                       grid: {
+                           display: false // Fjerner gridlines
+                       }
                     }
                 }
             }
@@ -69,7 +77,15 @@ fetch('http://localhost:3000/chart2')
                 responsive: true,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false // Fjerner gridlines
+                        }
                     }
                 }
             }
@@ -228,6 +244,9 @@ fetch('http://localhost:3000/chart4')
                         title: {
                             display: true,
                             text: 'Category (Country)'
+                        },
+                        grid: {
+                            display: false
                         }
                     },
                     y: {
@@ -235,6 +254,9 @@ fetch('http://localhost:3000/chart4')
                         title: {
                             display: true,
                             text: 'Total Interactions'
+                        },
+                        grid: {
+                            display: false
                         }
                     }
                 },
