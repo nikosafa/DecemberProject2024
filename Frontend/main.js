@@ -299,7 +299,7 @@ fetch('http://localhost:3000/chart5')
                 labels: years,
                 datasets: [
                     {
-                        label: 'For',
+                        label: 'Supporting Ukraine',
                         data: forData,
                         borderColor: 'rgba(54, 162, 235, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -311,6 +311,19 @@ fetch('http://localhost:3000/chart5')
                 scales: {
                     y: {
                         beginAtZero: true
+                    }
+                },
+                //ingen gridlines:
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
                     }
                 }
             }
