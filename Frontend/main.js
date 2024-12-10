@@ -97,7 +97,7 @@ fetch('http://localhost:3000/chart2')
     .catch(error => console.error('Error fetching data for Chart 2:', error));
 
 // Initialize the map for Chart 3
-function initMap() {
+// function initMap() {
     // Fetch data for chart3
     fetch('http://localhost:3000/chart3')
         .then(response => {
@@ -115,7 +115,7 @@ function initMap() {
             }).setView([49.5260, 16.2551], 4); // Default zoom level for Europe
 
             // Add a legend to the map
-            const legend = L.control({ position: 'bottomleft' }); // Choose position: 'topleft', 'topright', 'bottomleft', 'bottomright'
+            const legend = L.control({ position: 'bottomleft' });
 
             legend.onAdd = function () {
                 const div = L.DomUtil.create('div', 'legend'); // Create a div with a class "legend"
@@ -193,7 +193,7 @@ function initMap() {
                 .catch(error => console.error('Error loading GeoJSON data:', error));
         })
         .catch(error => console.error('Error fetching data for Chart 3:', error));
-}
+// }
 
 // Helper function to get the color for each post type
 function getPostTypeColor(postType) {
@@ -204,7 +204,7 @@ function getPostTypeColor(postType) {
     };
     return postTypeColors[postType] || 'transparent'; // Default to transparent if post type is not found
 }
-
+/*
 // Fetch data for Chart 4
 fetch('http://localhost:3000/chart4')
     .then(response => {
@@ -266,7 +266,7 @@ fetch('http://localhost:3000/chart4')
         });
     })
     .catch(error => console.error('Error fetching data for Chart 4:', error));
-
+ */
 
 //fechting data for chart 5 - støtte til ukraine m gpt over tid
 fetch('http://localhost:3000/chart5')
