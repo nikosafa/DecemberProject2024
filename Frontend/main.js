@@ -2,6 +2,9 @@ function toggleChart(chartId) {
     const chartContainer = document.getElementById(chartId + '-container');
     if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
         chartContainer.style.display = 'block'; // Show the chart
+        if (chartId === 'chart3') {
+            initMap(); // Initialize map only when chart3 is shown
+        }
     } else {
         chartContainer.style.display = 'none'; // Hide the chart
     }
@@ -92,19 +95,6 @@ fetch('http://localhost:3000/chart2')
         });
     })
     .catch(error => console.error('Error fetching data for Chart 2:', error));
-
-// Function to toggle visibility of charts and map
-function toggleChart(chartId) {
-    const chartContainer = document.getElementById(chartId + '-container');
-    if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
-        chartContainer.style.display = 'block'; // Show the chart or map
-        if (chartId === 'chart3') {
-            initMap(); // Initialize map only when chart3 is shown
-        }
-    } else {
-        chartContainer.style.display = 'none'; // Hide the chart or map
-    }
-}
 
 // Initialize the map for Chart 3
 function initMap() {
