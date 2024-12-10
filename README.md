@@ -1,5 +1,6 @@
-Ret graf 4
-Tilføj video/billeder til mobil figuren
+* Ret graf 4
+* Tilføj video/billeder til mobil figuren
+* Push Hjemmesiden
 
 
 
