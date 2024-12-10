@@ -133,6 +133,7 @@ app.get ('/chart5', (req, res) => {
             'FROM classification\n' +
             '\t\n' +
             'JOIN time ON classification.ccpost_id = time.ccpost_id\n' +
+            'WHERE time.year >= 2021\n' +
             'GROUP BY gpt_ukraine_for_imod, time.year\n' +
             'ORDER BY time.year;'
 

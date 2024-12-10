@@ -292,11 +292,6 @@ fetch('http://localhost:3000/chart5')
             return item ? item.post_count : 0;
         });
 
-        const imodData = years.map(year => {
-            const item = data.find(d => d.year === year && d.gpt_ukraine_for_imod === "imod");
-            return item ? item.post_count : 0;
-        });
-
         const ctx = document.querySelector('#chart5').getContext('2d');
         new Chart(ctx, {
             type: 'line',
@@ -306,13 +301,8 @@ fetch('http://localhost:3000/chart5')
                     {
                         label: 'For',
                         data: forData,
-                        borderColor: '#556B2F',
-
-                    },
-                    {
-                        label: 'Imod',
-                        data: imodData,
-                        borderColor: '#800020'
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     }
                 ]
             },
