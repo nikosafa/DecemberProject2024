@@ -1,4 +1,5 @@
 * Ret graf 4
+* Ret stiger
 * Tilføj video/billeder til mobil figuren
 * Push Hjemmesiden
 
