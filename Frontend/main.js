@@ -238,7 +238,7 @@ fetch('http://localhost:3000/chart5')
                 labels: years,
                 datasets: [
                     {
-                        label: 'Supporting Ukraine',
+                        label: 'Posts supporting Ukraine',
                         data: forData,
                         borderColor: 'rgba(54, 162, 235, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
