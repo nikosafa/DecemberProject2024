@@ -292,7 +292,6 @@ button:active {
     height: 100%;
     object-fit: cover;
 }
-
 footer {
     margin-top: 50px;
     position: relative;
@@ -300,6 +299,13 @@ footer {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align items to the top */
     box-sizing: border-box;
+    padding: 20px; /* Add padding to create space around the text */
+}
+
+footer p {
+    color: white;
+    font-family: "Baskerville Old Face";
+    text-align: left;
 }
