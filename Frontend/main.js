@@ -1,4 +1,5 @@
 // Fetch data for Chart 1
+// Fetch data for Chart 1
 fetch('http://localhost:3000/chart1')
     .then(response => {
         if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
@@ -34,6 +35,11 @@ fetch('http://localhost:3000/chart1')
                         grid: {
                             display: false // Fjerner gridlines
                         }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false  // Gemmer den forklarende boks
                     }
                 }
             }
@@ -77,6 +83,11 @@ fetch('http://localhost:3000/chart2')
                         grid: {
                             display: false // Fjerner gridlines
                         }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false  // Gemmer den forklarende boks
                     }
                 }
             }
