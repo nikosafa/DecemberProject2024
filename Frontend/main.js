@@ -142,10 +142,10 @@ function initMap() {
             legend.onAdd = function () {
                 const div = L.DomUtil.create('div', 'legend');
                 div.innerHTML = `
-                    <h4>Post Types</h4>
-                    <i style="background: red"></i> Video<br>
-                    <i style="background: blue"></i> Photo<br>
-                    <i style="background: green"></i> Share<br>`;
+                    <h4>Posttype most interacted with</h4>
+                    <i style="background: royalblue"></i> Video<br>
+                    <i style="background: darkred"></i> Photo<br>
+                    <i style="background: yellow"></i> Share<br>`;
                 return div;
             };
             legend.addTo(map);
@@ -205,9 +205,9 @@ function initMap() {
 // Helper function to get the color for each post type
 function getPostTypeColor(postType) {
     const postTypeColors = {
-        video: 'red',
-        photo: 'blue',
-        share: 'green',
+        video: 'royalblue',
+        photo: 'darkred',
+        share: 'yellow',
     };
     return postTypeColors[postType] || 'transparent'; // Default to transparent if post type is not found
 }
