@@ -133,6 +133,13 @@ button {
     background-color: #3656d1;
 }
 
+/* CSS specifikt til kort (kortets container skal have valid højde/bredde) */
+#map {
+    width: 100%; /* Brug hele bredden af dens forælder */
+    height: 500px; /* Giv en fast højde - kan justeres */
+    margin: 0 auto;
+}
+
 .computer-frame {
     width: 600px;
     height: 450px;

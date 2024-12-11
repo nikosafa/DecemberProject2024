@@ -1,21 +1,3 @@
-/*function toggleChart(chartId) {
-    const chartContainer = document.getElementById(chartId + '-container');
-    if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
-        chartContainer.style.display = 'block'; // Show the chart
-        if (chartId === 'chart3') {
-            initMap(); // Initialize map only when chart3 is shown
-        }
-    } else {
-        chartContainer.style.display = 'none'; // Hide the chart
-    }
-}
- */
-
-//forsøg på at der kommer forklarende tekst op når man trykker på billederne
-
-
-
-
 // Fetch data for Chart 1
 fetch('http://localhost:3000/chart1')
     .then(response => {
@@ -49,9 +31,9 @@ fetch('http://localhost:3000/chart1')
                         }
                     },
                     x: {
-                       grid: {
-                           display: false // Fjerner gridlines
-                       }
+                        grid: {
+                            display: false // Fjerner gridlines
+                        }
                     }
                 }
             }
@@ -102,6 +84,10 @@ fetch('http://localhost:3000/chart2')
     })
     .catch(error => console.error('Error fetching data for Chart 2:', error));
 
+
+const chartDivs = ["chart1-container", "chart2-container", "chart3-container"];
+
+// Function to toggle charts
 function toggleChart(chartId) {
     const chartContainers = document.querySelectorAll('.chart-container'); // All chart divs
     chartContainers.forEach(container => {
@@ -120,15 +106,15 @@ function toggleChart(chartId) {
     }
 }
 
-
+//Chart 3
 let map; // Declare the map variable globally
 
 // Initialize the map for Chart 3
 function initMap() {
-    fetch('http://localhost:3000/chart3')
+    fetch('http://localhost:3000/chart3') // Dine kortdata
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
-            return response.json();
+            return response.json(); // Data der kommer fra din chart3 endpoint
         })
         .then(data => {
             map = L.map('map', {
@@ -136,7 +122,7 @@ function initMap() {
                 doubleClickZoom: false,
                 boxZoom: false,
                 keyboard: false,
-                zoomControl: true
+                zoomControl: true,
             }).setView([49.5260, 16.2551], 4);
 
             // Add a legend to the map
@@ -154,65 +140,65 @@ function initMap() {
             legend.addTo(map);
 
             // Add OpenStreetMap tile layer
+            // Tilføj OpenStreetMap lag
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors',
                 maxZoom: 19
             }).addTo(map);
 
-            // Load GeoJSON data for countries
+            // Indlæs GeoJSON for landenes grænser og datapunkter
             fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
                 .then(response => response.json())
                 .then(geojson => {
-                    // Add GeoJSON data to the map
                     L.geoJSON(geojson, {
                         style: function (feature) {
-                            const countryData = data.find(country => country.country === feature.properties.name);
-                            const color = countryData ? getPostTypeColor(countryData.post_type) : 'transparent';
+                            const countryData = data.find(country => feature.properties.name.trim().toLowerCase() === country.country.trim().toLowerCase());
                             return {
-                                fillColor: color,
-                                weight: countryData ? 1 : 0,
-                                opacity: 1,
-                                color: 'black',
-                                fillOpacity: 0.7
+                                color: countryData ? 'black' : 'gray',
+                                fillColor: countryData ? getPostTypeColor(countryData.post_type.trim().toLowerCase()) : 'transparent',
+                                weight: 1,
+                                fillOpacity: 0.7,
                             };
                         },
                         onEachFeature: function (feature, layer) {
-                            const countryData = data.find(country => country.country === feature.properties.name);
+                            let originalName = feature.properties.name; // Store the original name
+                            if (originalName.trim().toLowerCase() === "united kingdom") {
+                                feature.properties.name = "Wales"; // Temporarily change name to Wales for styling
+                            }
+                            const countryData = data.find(c => c.country.trim().toLowerCase() === originalName.trim().toLowerCase());
                             if (countryData) {
-                                layer.bindTooltip(`
-                                    <b>${feature.properties.name}</b><br>
+                                layer.bindPopup(`
+<b>Wales</b><br> <!-- Always display 'Wales' -->
                                     Post Type: ${countryData.post_type}<br>
-                                    Total Interactions: ${countryData.total_interactions.toLocaleString()}
-                                `, { sticky: true });
+                                    Total Interactions: ${countryData.total_interactions}`);
                             }
                         }
-                    }).addTo(map);
+                }).addTo(map)
+                .on('mouseover', function (e) {
+                    if (e.layer.feature.properties.name === "Malta") {
+                        map.flyTo([35.8997, 14.5146], 6); // Zoom in on Malta
+                        map.once('mouseout', function () {
+                            setTimeout(() => map.flyTo([49.5260, 16.2551], 4)); // Ensure proper reset with delay
+                        });
+                    }
+                });
 
-                    map.invalidateSize(); // Ensure the map fits its container
-                })
-                .catch(error => console.error('Error loading GeoJSON data:', error));
+            map.invalidateSize();
         })
-        .catch(error => console.error('Error fetching data for Chart 3:', error));
+        .catch(error => console.error('Error loading GeoJSON:', error));
+})
+.catch(error => console.error('Error initializing chart 3 map:', error));
 }
 // }
 
-// Toggle between charts and initialize map if needed
-function toggleChart(chartId) {
-    const chartContainers = document.querySelectorAll('.chart-container'); // All chart divs
-    chartContainers.forEach(container => {
-        container.style.display = 'none'; // Hide all charts
-    });
-
-    const selectedContainer = document.getElementById(chartId + '-container');
-    selectedContainer.style.display = 'block'; // Show the selected chart
-
-    if (chartId === 'chart3') {
-        if (!map) {
-            initMap(); // Initialize the map if it hasn't been initialized yet
-        } else {
-            setTimeout(() => map.invalidateSize(), 200); // Delay to ensure the container is fully visible
-        }
-    }
+// Helper function to get the color for each post type
+function getPostTypeColor(postType) {
+    const postTypeColors = {
+        video: 'red',
+        photo: 'blue',
+        share: 'green',
+    };
+    return postTypeColors[postType] || 'transparent'; // Default to transparent if post type is not found
 }
 
 // Initialize by showing only the first chart and hiding the rest
@@ -226,78 +212,69 @@ function initializeCharts() {
 // Call the initialize function when the page loads
 initializeCharts();
 
-// Helper function to get the color for each post type
-function getPostTypeColor(postType) {
-    const postTypeColors = {
-        video: 'red',
-        photo: 'blue',
-        share: 'green',
-    };
-    return postTypeColors[postType] || 'transparent'; // Default to transparent if post type is not found
-}
 /*
 // Fetch data for Chart 4
 fetch('http://localhost:3000/chart4')
-    .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
-        return response.json();
-    })
-    .then(data => {
-        // Extract labels and values
-        const labels = data.map(item => `${item.category} (${item.country})`); // Combine category and country
-        const values = data.map(item => item.total_interactions); // Total interactions
+.then(response => {
+if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+return response.json();
+})
+.then(data => {
+// Extract labels and values
+const labels = data.map(item => `${item.category} (${item.country})`); // Combine category and country
+const values = data.map(item => item.total_interactions); // Total interactions
 
-        // Chart configuration
-        const ctx = document.querySelector('#chart4').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Total Interactions',
-                    data: values,
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Category (Country)'
-                        },
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Total Interactions'
-                        },
-                        grid: {
-                            display: false
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                return `Interactions: ${context.raw}`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    })
-    .catch(error => console.error('Error fetching data for Chart 4:', error));
- */
+// Chart configuration
+const ctx = document.querySelector('#chart4').getContext('2d');
+new Chart(ctx, {
+type: 'bar',
+data: {
+labels: labels,
+datasets: [{
+label: 'Total Interactions',
+data: values,
+}]
+},
+options: {
+responsive: true,
+scales: {
+x: {
+title: {
+display: true,
+text: 'Category (Country)'
+},
+grid: {
+display: false
+}
+},
+y: {
+beginAtZero: true,
+title: {
+display: true,
+text: 'Total Interactions'
+},
+grid: {
+display: false
+}
+}
+},
+plugins: {
+legend: {
+display: false
+},
+tooltip: {
+callbacks: {
+label: function (context) {
+return `Interactions: ${context.raw}`;
+}
+}
+}
+}
+}
+});
+})
+.catch(error => console.error('Error fetching data for Chart 4:', error));
+*/
 
 //fechting data for chart 5 - støtte til ukraine m gpt over tid
 fetch('http://localhost:3000/chart5')
@@ -369,31 +346,33 @@ function nextImage() {
     document.querySelector("#phone-image").src = images[currentIndex];
 }
 
-const chartDivs = ["chart1-container", "chart2-container", "chart3-container"];
 let currentChartIndex = 0; // Start with the first chart
 
 function nextChart() {
-    // Hide the current chart
+    // Gør det tidligere aktive chart/kort usynligt
     document.getElementById(chartDivs[currentChartIndex]).style.display = 'none';
 
-    // Update the index for the next chart
+    // Beregn det næste chart/kort
     currentChartIndex = (currentChartIndex + 1) % chartDivs.length;
 
-    // Show the new current chart
-    document.getElementById(chartDivs[currentChartIndex]).style.display = 'block';
-}
-/*
-// Initialize by showing only the first chart and hiding the rest
-function initializeCharts() {
-    chartDivs.forEach((chartId, index) => {
-        const chartDiv = document.getElementById(chartId);
-        chartDiv.style.display = index === 0 ? 'block' : 'none';
-    });
+    // Gør det nuværende chart/kort synligt og check for Leaflet kortet (chart3)
+    const nextChartContainer = document.getElementById(chartDivs[currentChartIndex]);
+    nextChartContainer.style.display = 'block';
+
+    if (chartDivs[currentChartIndex] === "chart3-container") {
+        if (!map) {
+            initMap(); // Initialiser kun én gang
+        } else {
+            setTimeout(() => map.invalidateSize(), 200); // Opdater kortstørrelsen
+        }
+    }
 }
 
-// Call the initialize function when the page loads
-initializeCharts();
 
- */
+
+
+
+
+
 
 
