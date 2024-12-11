@@ -43,22 +43,40 @@ header {
     box-sizing: border-box;
 }
 
+/*Settings for fonts */
 h1 {
     margin: 0;
     color: white;
-    font-size: 2.5rem;
+    font-size: 3rem;
+    font-family: "Baskerville Old Face";
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 3rem;
+    color: #333333;
+    font-family: "Baskerville Old Face";
 }
 
 p {
-    margin: 0;
-    color: white;
     font-size: 1.25rem;
     font-weight: bold;
     text-align: center;
-    max-width: 600px;
     width: 100%;
     box-sizing: border-box;
     padding-top: 50px;
+    color: #666;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Bahnschrift Light;
+}
+
+header p, footer p{
+    color: white;
+    font-family: "Baskerville Old Face";
+    text-align: left;
 }
 
 .content-grid {
@@ -88,7 +106,6 @@ button {
     border-radius: 5px;
     margin-top: 10px;
 }
-
 
 .button-grid {
     display: grid;
@@ -126,7 +143,6 @@ button {
     justify-content: center;
     align-items: center;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
-
 }
 
 .computer-frame p {
@@ -150,6 +166,7 @@ button {
     font-size: 2rem;
     color: #333;
     margin-bottom: 20px;
+    font-family: "Baskerville Old Face";
 }
 
 .deep-dive-section p {
@@ -161,11 +178,13 @@ button {
     margin-right: auto;
 }
 
-/*Styling Deep Dive - on img hover show text*/
+/* Styling Deep Dive - on img hover show text */
 .hide {
     display: none;
     position: absolute;
     margin-top: 5px;
+    font-family: Bahnschrift Light;
+    text-align: -moz-center;
 }
 
 .img-deep-dive:hover + .hide {
@@ -174,8 +193,6 @@ button {
     font-size: 1rem;
     color: #333;
 }
-
-
 
 .screenshot-gallery {
     display: grid;
@@ -225,7 +242,6 @@ button {
     margin-right: auto;
 }
 
-
 .change-suggestions-section {
     padding: 40px 20px;
     text-align: center;
@@ -259,19 +275,18 @@ button {
 }
 
 .phone {
-    width: 300px;
-    height: 600px;
+    width: 350px; /* Increased width */
+    height: 700px; /* Increased height */
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 15px; /* Slightly more rounded corners for aesthetics */
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
-
 
 .phone-content {
     width: 100%;
@@ -283,59 +298,43 @@ button {
     background-color: #486aef;
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 12px 25px; /* Adjusted padding for larger size */
+    font-size: 1.1rem; /* Slightly increased font size */
     cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-
-.swipe-button {
-    background-color: #486aef;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
+    border-radius: 8px; /* Slightly rounded corners */
+    margin: 15px 0; /* Extra margin for better spacing */
 }
 
 .swipe-button:hover {
     background-color: #4a72f0;
 }
 
-
-
+/* Adjust the legend size accordingly */
 .legend {
     background: white;
-    padding: 10px;
+    padding: 12px; /* Slightly larger padding */
     line-height: 1.5;
     border-radius: 5px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    font-size: 12px;
+    font-size: 14px; /* Increased font size slightly */
 }
 
 .legend h4 {
-    margin: 0 0 5px;
+    margin: 0 0 6px;
     font-weight: bold;
 }
 
 .legend i {
     display: inline-block;
-    width: 12px;
-    height: 12px;
+    width: 14px; /* Adjusted size */
+    height: 14px; /* Adjusted size */
     margin-right: 8px;
     vertical-align: middle;
     border-radius: 2px;
     border: 1px solid black;
 }
 
-
-
 footer {
-    color: white;
     margin-top: 50px;
     position: relative;
     height: 300px;
