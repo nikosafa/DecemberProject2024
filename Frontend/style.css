@@ -96,42 +96,45 @@ header p, footer p{
     align-items: center;
 }
 
+/*Stole some of the style for the buttons from https://getcssscan.com/css-buttons-examples (its button 30)*/
 button {
+    align-items: center;
     background-color: #486aef;
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    display: inline-flex;
+    font-family: "JetBrains Mono",monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    overflow: hidden;
+    position: relative;
+    transition: box-shadow .15s,transform .15s;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    padding: 12px 25px;
+    font-size: 1.1rem;
     cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
+    border-radius: 8px;
+    margin: 15px 0;
 }
 
-.button-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns */
-    gap: 15px; /* Space between buttons */
-    justify-content: center; /* Center align the grid */
-    align-items: center; /* Vertically align the buttons */
-    margin-top: 20px;
-}
+    button:focus {
+        box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    }
 
-.button-grid button {
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 5px;
-    background-color: #486aef;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+    button:hover {
+        box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+        transform: translateY(-2px);
+    }
 
-.button-grid button:hover {
-    background-color: #3656d1;
-}
+    button:active {
+        box-shadow: #D6D6E7 0 3px 7px inset;
+        transform: translateY(2px);
+    }
 
 .computer-frame {
     width: 600px;
@@ -292,21 +295,6 @@ button {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-.swipe-button {
-    background-color: #486aef;
-    color: white;
-    border: none;
-    padding: 12px 25px; /* Adjusted padding for larger size */
-    font-size: 1.1rem; /* Slightly increased font size */
-    cursor: pointer;
-    border-radius: 8px; /* Slightly rounded corners */
-    margin: 15px 0; /* Extra margin for better spacing */
-}
-
-.swipe-button:hover {
-    background-color: #4a72f0;
 }
 
 /* Adjust the legend size accordingly */
