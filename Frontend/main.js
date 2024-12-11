@@ -1,4 +1,4 @@
-function toggleChart(chartId) {
+/*function toggleChart(chartId) {
     const chartContainer = document.getElementById(chartId + '-container');
     if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
         chartContainer.style.display = 'block'; // Show the chart
@@ -9,6 +9,7 @@ function toggleChart(chartId) {
         chartContainer.style.display = 'none'; // Hide the chart
     }
 }
+ */
 
 // Fetch data for Chart 1
 fetch('http://localhost:3000/chart1')
@@ -96,29 +97,47 @@ fetch('http://localhost:3000/chart2')
     })
     .catch(error => console.error('Error fetching data for Chart 2:', error));
 
+function toggleChart(chartId) {
+    const chartContainers = document.querySelectorAll('.chart-container'); // All chart divs
+    chartContainers.forEach(container => {
+        container.style.display = 'none'; // Hide all charts
+    });
+
+    const selectedContainer = document.getElementById(chartId + '-container');
+    selectedContainer.style.display = 'block'; // Show the selected chart
+
+    if (chartId === 'chart3') {
+        if (!map) {
+            initMap(); // Initialize the map if it hasn't been initialized yet
+        } else {
+            setTimeout(() => map.invalidateSize(), 200); // Delay to ensure the container is fully visible
+        }
+    }
+}
+
+
+let map; // Declare the map variable globally
+
 // Initialize the map for Chart 3
-// function initMap() {
-    // Fetch data for chart3
+function initMap() {
     fetch('http://localhost:3000/chart3')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
             return response.json();
         })
         .then(data => {
-            // Initialize the map centered on Europe, with interactions disabled
-            const map = L.map('map', {
+            map = L.map('map', {
                 scrollWheelZoom: false,
                 doubleClickZoom: false,
                 boxZoom: false,
                 keyboard: false,
-                zoomControl: true // Enable zoom control
-            }).setView([49.5260, 16.2551], 4); // Default zoom level for Europe
+                zoomControl: true
+            }).setView([49.5260, 16.2551], 4);
 
-            // Add a legend to the map
             const legend = L.control({ position: 'bottomleft' });
 
             legend.onAdd = function () {
-                const div = L.DomUtil.create('div', 'legend'); // Create a div with a class "legend"
+                const div = L.DomUtil.create('div', 'legend');
                 div.innerHTML = `
                     <h4>Post Types</h4>
                     <i style="background: red"></i> Video<br>
@@ -128,30 +147,21 @@ fetch('http://localhost:3000/chart2')
             };
             legend.addTo(map);
 
-            // Add OpenStreetMap tile layer
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors',
                 maxZoom: 19
             }).addTo(map);
 
-            // Load GeoJSON data for countries
             fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
                 .then(response => response.json())
                 .then(geojson => {
-                    // Add GeoJSON data to the map
                     L.geoJSON(geojson, {
                         style: function (feature) {
                             const countryData = data.find(country => country.country === feature.properties.name);
-                            let color = 'transparent'; // Default to transparent if no data
-
-                            if (feature.properties.name === 'United Kingdom') {
-                                color = countryData ? getPostTypeColor(countryData.post_type) : 'transparent';
-                            } else {
-                                color = countryData ? getPostTypeColor(countryData.post_type) : 'transparent';
-                            }
+                            const color = countryData ? getPostTypeColor(countryData.post_type) : 'transparent';
                             return {
                                 fillColor: color,
-                                weight: countryData ? 1 : 0, // Remove border if no data
+                                weight: countryData ? 1 : 0,
                                 opacity: 1,
                                 color: 'black',
                                 fillOpacity: 0.7
@@ -159,41 +169,53 @@ fetch('http://localhost:3000/chart2')
                         },
                         onEachFeature: function (feature, layer) {
                             const countryData = data.find(country => country.country === feature.properties.name);
-
-                            // Zoom-in on Malta on hover
-                            if (feature.properties.name === 'Malta') {
-                                layer.on('mouseover', function () {
-                                    map.setView(layer.getBounds().getCenter(), 7); // Zoom in on Malta when hovered
-                                });
-                                layer.on('mouseout', function () {
-                                    map.setView([49.5260, 16.2551], 4); // Zoom back to the default view when mouse leaves
-                                });
-                            }
-
-                            // Hvis landet er Storbritannien, ændres tooltip-titlen til Wales
-                            let tooltipTitle = feature.properties.name; // Default to country name
-                            if (feature.properties.name === 'United Kingdom') {
-                                tooltipTitle = 'Wales'; // Change to Wales for United Kingdom
-                            }
-
-                            // Kun tilføj tooltip, hvis landet findes i data
                             if (countryData) {
                                 layer.bindTooltip(`
-                                    <b>${tooltipTitle}</b><br>  <!-- Vis "Wales" i stedet for "United Kingdom" -->
+                                    <b>${feature.properties.name}</b><br>
                                     Post Type: ${countryData.post_type}<br>
                                     Total Interactions: ${countryData.total_interactions.toLocaleString()}
-                                `, { sticky: true }); // `sticky` gør, at tooltip følger musen
+                                `, { sticky: true });
                             }
                         }
                     }).addTo(map);
 
-                    // Adjust the map to fit the container after adding GeoJSON
-                    map.invalidateSize();
+                    map.invalidateSize(); // Ensure the map fits its container
                 })
                 .catch(error => console.error('Error loading GeoJSON data:', error));
         })
         .catch(error => console.error('Error fetching data for Chart 3:', error));
+}
 // }
+
+// Toggle between charts and initialize map if needed
+function toggleChart(chartId) {
+    const chartContainers = document.querySelectorAll('.chart-container'); // All chart divs
+    chartContainers.forEach(container => {
+        container.style.display = 'none'; // Hide all charts
+    });
+
+    const selectedContainer = document.getElementById(chartId + '-container');
+    selectedContainer.style.display = 'block'; // Show the selected chart
+
+    if (chartId === 'chart3') {
+        if (!map) {
+            initMap(); // Initialize the map if it hasn't been initialized yet
+        } else {
+            setTimeout(() => map.invalidateSize(), 200); // Delay to ensure the container is fully visible
+        }
+    }
+}
+
+// Initialize by showing only the first chart and hiding the rest
+function initializeCharts() {
+    chartDivs.forEach((chartId, index) => {
+        const chartDiv = document.getElementById(chartId);
+        chartDiv.style.display = index === 0 ? 'block' : 'none';
+    });
+}
+
+// Call the initialize function when the page loads
+initializeCharts();
 
 // Helper function to get the color for each post type
 function getPostTypeColor(postType) {
@@ -332,4 +354,32 @@ function nextImage() {
     // Update the image source
     document.getElementById("phone-image").src = images[currentIndex];
 }
+
+const chartDivs = ["chart1-container", "chart2-container", "chart3-container"];
+let currentChartIndex = 0; // Start with the first chart
+
+function nextChart() {
+    // Hide the current chart
+    document.getElementById(chartDivs[currentChartIndex]).style.display = 'none';
+
+    // Update the index for the next chart
+    currentChartIndex = (currentChartIndex + 1) % chartDivs.length;
+
+    // Show the new current chart
+    document.getElementById(chartDivs[currentChartIndex]).style.display = 'block';
+}
+/*
+// Initialize by showing only the first chart and hiding the rest
+function initializeCharts() {
+    chartDivs.forEach((chartId, index) => {
+        const chartDiv = document.getElementById(chartId);
+        chartDiv.style.display = index === 0 ? 'block' : 'none';
+    });
+}
+
+// Call the initialize function when the page loads
+initializeCharts();
+
+ */
+
 
