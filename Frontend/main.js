@@ -1,7 +1,9 @@
 // Fetch data for Chart 1
+// Henter data fra serveren for det første diagram
 fetch('http://localhost:3000/chart1')
     .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+if (!response.ok)
+    throw new Error('Network response was not ok ' + response.statusText); // Tjek om der er fejl i serverens svar
         return response.json();
     })
     .then(data => {
@@ -24,13 +26,13 @@ fetch('http://localhost:3000/chart1')
             options: {
                 responsive: true,
                 scales: {
-                    y: {
+y: { // Konfiguration for y-aksen
                         beginAtZero: true,
-                        grid: {
-                            display: false
-                        }
+grid: {
+display: false // Fjerner gridlines på y-aksen
+}
                     },
-                    x: {
+x: { // Konfiguration for x-aksen
                         grid: {
                             display: false // Fjerner gridlines
                         }
@@ -126,7 +128,7 @@ function initMap() {
             }).setView([49.5260, 16.2551], 4);
 
             // Add a legend to the map
-            const legend = L.control({ position: 'bottomleft' });
+            const legend = L.control({position: 'bottomleft'});
 
             legend.onAdd = function () {
                 const div = L.DomUtil.create('div', 'legend');
@@ -162,34 +164,41 @@ function initMap() {
                         },
                         onEachFeature: function (feature, layer) {
                             let originalName = feature.properties.name; // Store the original name
-                            if (originalName.trim().toLowerCase() === "united kingdom") {
-                                feature.properties.name = "Wales"; // Temporarily change name to Wales for styling
-                            }
+if (originalName === "United Kingdom") {
+    const displayName = "Wales"; // Temporarily use "Wales" for visual purposes
+    const countryData = data.find(c => c.country.trim().toLowerCase() === originalName.trim().toLowerCase());
+    if (countryData) {
+        layer.bindPopup(`
+            <b>${displayName}</b><br> 
+            Post Type: ${countryData.post_type}<br>
+            Total Interactions: ${countryData.total_interactions}`);
+    }
+    return; // Skip rest of logic for United Kingdom
+}
                             const countryData = data.find(c => c.country.trim().toLowerCase() === originalName.trim().toLowerCase());
                             if (countryData) {
                                 layer.bindPopup(`
-<b>Wales</b><br> <!-- Always display 'Wales' -->
+                            <b>${originalName}</b><br> 
                                     Post Type: ${countryData.post_type}<br>
                                     Total Interactions: ${countryData.total_interactions}`);
                             }
                         }
-                }).addTo(map)
-                .on('mouseover', function (e) {
-                    if (e.layer.feature.properties.name === "Malta") {
-                        map.flyTo([35.8997, 14.5146], 6); // Zoom in on Malta
-                        map.once('mouseout', function () {
-                            setTimeout(() => map.flyTo([49.5260, 16.2551], 4)); // Ensure proper reset with delay
+                    }).addTo(map)
+                        .on('mouseover', function (e) {
+                            if (e.layer.feature.properties.name === "Malta") {
+                                map.flyTo([35.8997, 14.5146], 6); // Zoom in on Malta
+                                map.once('mouseout', function () {
+                                    setTimeout(() => map.flyTo([49.5260, 16.2551], 4)); // Ensure proper reset with delay
+                                });
+                            }
                         });
-                    }
-                });
 
-            map.invalidateSize();
+                    map.invalidateSize();
+                })
+                .catch(error => console.error('Error loading GeoJSON:', error));
         })
-        .catch(error => console.error('Error loading GeoJSON:', error));
-})
-.catch(error => console.error('Error initializing chart 3 map:', error));
+        .catch(error => console.error('Error initializing chart 3 map:', error));
 }
-// }
 
 // Helper function to get the color for each post type
 function getPostTypeColor(postType) {
@@ -271,7 +280,6 @@ fetch('http://localhost:3000/chart5')
     .catch(error => console.error('Error fetching data for Chart 5:', error));
 
 
-
 const images = ["Frontend/1.png", "Frontend/2.png", "Frontend/3.png", "Frontend/4.png", "Frontend/5.png"]; // List of image URLs
 let currentIndex = 0;
 
@@ -303,12 +311,4 @@ function nextChart() {
         }
     }
 }
-
-
-
-
-
-
-
-
 
