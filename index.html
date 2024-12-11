@@ -28,15 +28,46 @@
     </p>
     <div class="screenshot-gallery">
         <div class="screenshot-row">
-            <img src="Frontend/Screenshot1.png" alt="Screenshot example 1">
-            <img src="Frontend/Screenshot2.png" alt="Screenshot example 2">
+
+            <div class="image-containers">
+            <img src="Frontend/Screenshot1.png" class="img-deep-dive" alt="Screenshot example 1">
+            <div class="hide">
+                The album has too many slides. <br>
+                It's text-heavy and not share-able. <br>
+                Distribute the content over a few slides.
+            </div>
+            </div>
+
+            <div class="image-containers">
+            <img src="Frontend/Screenshot2.png" class="img-deep-dive"  alt="Screenshot example 2">
+            <div class="hide">
+                You get very few views - use english <br>
+                Make your logo larger so people can regonise you. <br>
+                Use short videoes   </div>
+            </div>
         </div>
+
+
         <div class="screenshot-row">
-            <img src="Frontend/Screenshot3.png" alt="Screenshot example 3">
-            <img src="Frontend/Screenshot4.png" alt="Screenshot example 4">
+            <div class="image-containers">
+            <img src="Frontend/Screenshot3.png" class="img-deep-dive" alt="Screenshot example 3">
+            <div class="hide">
+                Write in english - especially on your pictures, <br>
+                they can't be translated easily</div>
+                </div>
+
+            <div class="image-containers">
+            <img src="Frontend/Screenshot4.png" class="img-deep-dive" alt="Screenshot example 4">
+            <div class="hide">
+                Post the same reels on FaceBook and Instagram <br>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+
+
 
 <main>
     <div class="content-grid">
@@ -45,7 +76,7 @@
             <div id="chart1-container" class="computer-frame">
                 <canvas id="chart1"></canvas>
                 <p> In Europe, the media gets the most interactions on FaceBook.
-                    Let's figure out what they're doing rigth!</p>
+                    Let's figure out what they're doing right!</p>
             </div>
             <div id="chart2-container" class="computer-frame" style="display: none">
                 <canvas id="chart2"></canvas>
@@ -62,8 +93,8 @@
 </main>
 
 <section id="opinion-on-ukraine">
-        <h2>People are not on Ukraine's side anymore</h2>
-        <p>The support to Ukraine is decreasing on FaceBook. The users on FaceBook are no longer talking about Ukraine. We made you a new so-me strategy to gain more support to Ukraine.</p>
+    <h2>People are not on Ukraine's side anymore</h2>
+    <p>The support to Ukraine is decreasing on FaceBook. The users on FaceBook are no longer talking about Ukraine. We made you a new so-me strategy to gain more support to Ukraine.</p>
     <div id="chart5-container">
         <canvas id="chart5"></canvas>
 
@@ -79,10 +110,11 @@
 
 <div class="phone-container">
     <div class="phone">
-        <img id="phone-image" src="Frontend/Screenshot1.png" alt="Phone Content" class="phone-content">
+        <img id="phone-image" src="Frontend/1.png" alt="Phone Content" class="phone-content">
         <button class="swipe-button" onclick="nextImage()">Swipe</button>
     </div>
 </div>
+
 
 
 
@@ -90,7 +122,6 @@
     <p>Made by Nikoleta, Jonas and Linea</p>
     <div class="background-image">
         <img src="Frontend/Background.png"/></div>
-    </div>
 </footer>
 
 <script src="Frontend/main.js"></script>

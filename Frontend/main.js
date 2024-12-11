@@ -11,6 +11,11 @@
 }
  */
 
+//forsøg på at der kommer forklarende tekst op når man trykker på billederne
+
+
+
+
 // Fetch data for Chart 1
 fetch('http://localhost:3000/chart1')
     .then(response => {
@@ -134,6 +139,7 @@ function initMap() {
                 zoomControl: true
             }).setView([49.5260, 16.2551], 4);
 
+            // Add a legend to the map
             const legend = L.control({ position: 'bottomleft' });
 
             legend.onAdd = function () {
@@ -147,14 +153,17 @@ function initMap() {
             };
             legend.addTo(map);
 
+            // Add OpenStreetMap tile layer
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors',
                 maxZoom: 19
             }).addTo(map);
 
+            // Load GeoJSON data for countries
             fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
                 .then(response => response.json())
                 .then(geojson => {
+                    // Add GeoJSON data to the map
                     L.geoJSON(geojson, {
                         style: function (feature) {
                             const countryData = data.find(country => country.country === feature.properties.name);
@@ -309,11 +318,6 @@ fetch('http://localhost:3000/chart5')
             return item ? item.post_count : 0;
         });
 
-        const imodData = years.map(year => {
-            const item = data.find(d => d.year === year && d.gpt_ukraine_for_imod === "imod");
-            return item ? item.post_count : 0;
-        });
-
         const ctx = document.querySelector('#chart5').getContext('2d');
         new Chart(ctx, {
             type: 'line',
@@ -321,15 +325,10 @@ fetch('http://localhost:3000/chart5')
                 labels: years,
                 datasets: [
                     {
-                        label: 'For',
+                        label: 'Supporting Ukraine',
                         data: forData,
-                        borderColor: '#556B2F',
-
-                    },
-                    {
-                        label: 'Imod',
-                        data: imodData,
-                        borderColor: '#800020'
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     }
                 ]
             },
@@ -339,20 +338,35 @@ fetch('http://localhost:3000/chart5')
                     y: {
                         beginAtZero: true
                     }
+                },
+                //ingen gridlines:
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
                 }
             }
         });
     })
     .catch(error => console.error('Error fetching data for Chart 5:', error));
 
-const images = ["Frontend/Screenshot1.png", "Frontend/Screenshot2.png", "Frontend/Screenshot3.png"]; // List of image URLs
+
+
+const images = ["Frontend/1.png", "Frontend/2.png", "Frontend/3.png", "Frontend/4.png", "Frontend/5.png"]; // List of image URLs
 let currentIndex = 0;
 
 function nextImage() {
     // Increment the index
     currentIndex = (currentIndex + 1) % images.length; // Loop back to the first image
     // Update the image source
-    document.getElementById("phone-image").src = images[currentIndex];
+    document.querySelector("#phone-image").src = images[currentIndex];
 }
 
 const chartDivs = ["chart1-container", "chart2-container", "chart3-container"];
