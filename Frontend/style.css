@@ -43,22 +43,40 @@ header {
     box-sizing: border-box;
 }
 
+/*Settings for fonts */
 h1 {
     margin: 0;
     color: white;
-    font-size: 2.5rem;
+    font-size: 3rem;
+    font-family: "Baskerville Old Face";
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 3rem;
+    color: #333333;
+    font-family: "Baskerville Old Face";
 }
 
 p {
-    margin: 0;
-    color: white;
     font-size: 1.25rem;
     font-weight: bold;
     text-align: center;
-    max-width: 600px;
     width: 100%;
     box-sizing: border-box;
     padding-top: 50px;
+    color: #666;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Bahnschrift Light;
+}
+
+header p, footer p{
+    color: white;
+    font-family: "Baskerville Old Face";
+    text-align: left;
 }
 
 .content-grid {
@@ -148,6 +166,7 @@ button {
     font-size: 2rem;
     color: #333;
     margin-bottom: 20px;
+    font-family: "Baskerville Old Face";
 }
 
 .deep-dive-section p {
@@ -164,6 +183,8 @@ button {
     display: none;
     position: absolute;
     margin-top: 5px;
+    font-family: Bahnschrift Light;
+    text-align: -moz-center;
 }
 
 .img-deep-dive:hover + .hide {
@@ -314,7 +335,6 @@ button {
 }
 
 footer {
-    color: white;
     margin-top: 50px;
     position: relative;
     height: 300px;
