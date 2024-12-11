@@ -89,7 +89,6 @@ button {
     margin-top: 10px;
 }
 
-
 .button-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Two columns */
@@ -126,7 +125,6 @@ button {
     justify-content: center;
     align-items: center;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
-
 }
 
 .computer-frame p {
@@ -161,7 +159,7 @@ button {
     margin-right: auto;
 }
 
-/*Styling Deep Dive - on img hover show text*/
+/* Styling Deep Dive - on img hover show text */
 .hide {
     display: none;
     position: absolute;
@@ -174,8 +172,6 @@ button {
     font-size: 1rem;
     color: #333;
 }
-
-
 
 .screenshot-gallery {
     display: grid;
@@ -225,7 +221,6 @@ button {
     margin-right: auto;
 }
 
-
 .change-suggestions-section {
     padding: 40px 20px;
     text-align: center;
@@ -259,19 +254,18 @@ button {
 }
 
 .phone {
-    width: 300px;
-    height: 600px;
+    width: 350px; /* Increased width */
+    height: 700px; /* Increased height */
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 15px; /* Slightly more rounded corners for aesthetics */
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
-
 
 .phone-content {
     width: 100%;
@@ -283,56 +277,41 @@ button {
     background-color: #486aef;
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 12px 25px; /* Adjusted padding for larger size */
+    font-size: 1.1rem; /* Slightly increased font size */
     cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-
-.swipe-button {
-    background-color: #486aef;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
+    border-radius: 8px; /* Slightly rounded corners */
+    margin: 15px 0; /* Extra margin for better spacing */
 }
 
 .swipe-button:hover {
     background-color: #4a72f0;
 }
 
-
-
+/* Adjust the legend size accordingly */
 .legend {
     background: white;
-    padding: 10px;
+    padding: 12px; /* Slightly larger padding */
     line-height: 1.5;
     border-radius: 5px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    font-size: 12px;
+    font-size: 14px; /* Increased font size slightly */
 }
 
 .legend h4 {
-    margin: 0 0 5px;
+    margin: 0 0 6px;
     font-weight: bold;
 }
 
 .legend i {
     display: inline-block;
-    width: 12px;
-    height: 12px;
+    width: 14px; /* Adjusted size */
+    height: 14px; /* Adjusted size */
     margin-right: 8px;
     vertical-align: middle;
     border-radius: 2px;
     border: 1px solid black;
 }
-
-
 
 footer {
     color: white;
