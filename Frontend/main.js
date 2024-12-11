@@ -318,6 +318,8 @@ fetch('http://localhost:3000/chart5')
     })
     .catch(error => console.error('Error fetching data for Chart 5:', error));
 
+
+
 const images = ["Frontend/1.png", "Frontend/2.png", "Frontend/3.png", "Frontend/4.png", "Frontend/5.png"]; // List of image URLs
 let currentIndex = 0;
 
