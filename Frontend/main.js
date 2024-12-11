@@ -1,4 +1,3 @@
-// Fetch data for Chart 1
 // Henter data fra serveren for det første diagram
 fetch('http://localhost:3000/chart1')
     .then(response => {
@@ -36,6 +35,11 @@ x: { // Konfiguration for x-aksen
                         grid: {
                             display: false // Fjerner gridlines
                         }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false  // Gemmer den forklarende boks
                     }
                 }
             }
@@ -79,6 +83,11 @@ fetch('http://localhost:3000/chart2')
                         grid: {
                             display: false // Fjerner gridlines
                         }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false  // Gemmer den forklarende boks
                     }
                 }
             }
@@ -133,10 +142,10 @@ function initMap() {
             legend.onAdd = function () {
                 const div = L.DomUtil.create('div', 'legend');
                 div.innerHTML = `
-                    <h4>Post Types</h4>
-                    <i style="background: red"></i> Video<br>
-                    <i style="background: blue"></i> Photo<br>
-                    <i style="background: green"></i> Share<br>`;
+                    <h4>Posttype most interacted with</h4>
+                    <i style="background: royalblue"></i> Video<br>
+                    <i style="background: darkred"></i> Photo<br>
+                    <i style="background: yellow"></i> Share<br>`;
                 return div;
             };
             legend.addTo(map);
@@ -203,9 +212,9 @@ if (originalName === "United Kingdom") {
 // Helper function to get the color for each post type
 function getPostTypeColor(postType) {
     const postTypeColors = {
-        video: 'red',
-        photo: 'blue',
-        share: 'green',
+        video: 'royalblue',
+        photo: 'darkred',
+        share: 'yellow',
     };
     return postTypeColors[postType] || 'transparent'; // Default to transparent if post type is not found
 }
@@ -247,7 +256,7 @@ fetch('http://localhost:3000/chart5')
                 labels: years,
                 datasets: [
                     {
-                        label: 'Supporting Ukraine',
+                        label: 'Posts supporting Ukraine',
                         data: forData,
                         borderColor: 'rgba(54, 162, 235, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
