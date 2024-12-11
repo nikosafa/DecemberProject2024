@@ -1,3 +1,4 @@
+/* Basic Reset and Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -43,7 +44,6 @@ header {
     box-sizing: border-box;
 }
 
-/*Settings for fonts */
 h1 {
     margin: 0;
     color: white;
@@ -73,7 +73,7 @@ p {
     font-family: Bahnschrift Light;
 }
 
-header p, footer p{
+header p, footer p {
     color: white;
     font-family: "Baskerville Old Face";
     text-align: left;
@@ -96,25 +96,23 @@ header p, footer p{
     align-items: center;
 }
 
-/*Stole some of the style for the buttons from https://getcssscan.com/css-buttons-examples (its button 30)*/
 button {
-    align-items: center;
     background-color: #486aef;
     color: white;
     border: none;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
     box-sizing: border-box;
     display: inline-flex;
-    font-family: "JetBrains Mono",monospace;
+    font-family: "JetBrains Mono", monospace;
     height: 48px;
     justify-content: center;
     line-height: 1;
     overflow: hidden;
     position: relative;
-    transition: box-shadow .15s,transform .15s;
+    transition: box-shadow .15s, transform .15s;
     touch-action: manipulation;
     white-space: nowrap;
-    will-change: box-shadow,transform;
+    will-change: box-shadow, transform;
     padding: 12px 25px;
     font-size: 1.1rem;
     cursor: pointer;
@@ -122,24 +120,23 @@ button {
     margin: 15px 0;
 }
 
-    button:focus {
-        box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
-    }
+button:focus {
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
 
-    button:hover {
-        box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
-        transform: translateY(-2px);
-    }
+button:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
 
-    button:active {
-        box-shadow: #D6D6E7 0 3px 7px inset;
-        transform: translateY(2px);
-    }
+button:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
+}
 
-/* CSS specifikt til kort (kortets container skal have valid højde/bredde) */
 #map {
-    width: 100%; /* Brug hele bredden af dens forælder */
-    height: 500px; /* Giv en fast højde - kan justeres */
+    width: 100%;
+    height: 500px;
     margin: 0 auto;
 }
 
@@ -150,6 +147,7 @@ button {
     border-radius: 10px;
     margin: 30px auto;
     background-color: #f5f5f5;
+    display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
@@ -160,16 +158,11 @@ button {
     font-weight: normal;
 }
 
-#map {
-    width: 100%;
-    height: 100%;
-}
-
 .deep-dive-section {
     padding: 40px 20px;
     text-align: center;
-    background-color: #ffffff; /* Background color for contrast */
-    margin-top: 30px; /* Space between sections */
+    background-color: #ffffff;
+    margin-top: 30px;
 }
 
 .deep-dive-section h2 {
@@ -188,18 +181,16 @@ button {
     margin-right: auto;
 }
 
-/* Styling Deep Dive - on img hover show text */
 .hide {
     display: none;
     position: absolute;
     margin-top: 5px;
     font-family: Bahnschrift Light;
-    text-align: -moz-center;
+    text-align: center;
 }
 
 .img-deep-dive:hover + .hide {
     display: block;
-    flex-direction: row-reverse;
     font-size: 1rem;
     color: #333;
 }
@@ -215,7 +206,6 @@ button {
     justify-content: center;
     gap: 50px;
     margin-bottom: 60px;
-    position: relative;
 }
 
 .screenshot-row img {
@@ -230,8 +220,8 @@ button {
 #opinion-on-ukraine {
     padding: 40px 20px;
     text-align: center;
-    background-color: #f5f5f5; /* Light gray background for contrast */
-    margin-top: 30px; /* Space between sections */
+    background-color: #f5f5f5;
+    margin-top: 30px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -255,8 +245,8 @@ button {
 .change-suggestions-section {
     padding: 40px 20px;
     text-align: center;
-    background-color: #f5f5f5; /* Light gray background for contrast */
-    margin-top: 30px; /* Space between sections */
+    background-color: #f5f5f5;
+    margin-top: 30px;
 }
 
 .change-suggestions-section h2 {
@@ -274,21 +264,20 @@ button {
     margin-right: auto;
 }
 
-/* Phone Section */
 .phone-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
-    width: 100vw; /* Full viewport width */
-    box-sizing: border-box; /* Ensures padding and borders are included in width/height */
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
 }
 
 .phone {
-    width: 350px; /* Increased width */
-    height: 700px; /* Increased height */
+    width: 350px;
+    height: 700px;
     border: 1px solid #ddd;
-    border-radius: 15px; /* Slightly more rounded corners for aesthetics */
+    border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     background-color: #fff;
@@ -304,37 +293,13 @@ button {
     object-fit: cover;
 }
 
-/* Adjust the legend size accordingly */
-.legend {
-    background: white;
-    padding: 12px; /* Slightly larger padding */
-    line-height: 1.5;
-    border-radius: 5px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    font-size: 14px; /* Increased font size slightly */
-}
-
-.legend h4 {
-    margin: 0 0 6px;
-    font-weight: bold;
-}
-
-.legend i {
-    display: inline-block;
-    width: 14px; /* Adjusted size */
-    height: 14px; /* Adjusted size */
-    margin-right: 8px;
-    vertical-align: middle;
-    border-radius: 2px;
-    border: 1px solid black;
-}
-
 footer {
     margin-top: 50px;
     position: relative;
     height: 300px;
     width: 100%;
-    box-sizing: border-box;
     display: flex;
     justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
 }
