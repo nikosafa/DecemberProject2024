@@ -94,35 +94,6 @@ app.get ('/chart3', (req, res) => {
     });
 });
 
-
-//chart 4
-app.get ('/chart4', (req, res) => {
-    const query = 'SELECT \n' +
-        '    sourcepop.category,\n' +
-        '    sourcepop.country,\n' +
-        '    metrics.post_type,\n' +
-        '    metrics.total_interactions\n' +
-        'FROM \n' +
-        '    metrics\n' +
-        'JOIN \n' +
-        '    sourcepop\n' +
-        'ON \n' +
-        '    metrics.ccpageid = sourcepop.ccpageid\n' +
-        'ORDER BY \n' +
-        '    metrics.total_interactions DESC\n' +
-        'LIMIT 10;\n';
-    connection.query(query, (err, result) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Error fetching ukraine data');
-            return;
-        }
-        res.json(result);
-        console.log(result);
-    });
-});
-
-
 //chart 5 - støtte til ukraine over tid
 app.get ('/chart5', (req, res) => {
         const query = 'SELECT \n' +
