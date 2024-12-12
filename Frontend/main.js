@@ -1,39 +1,64 @@
-// Henter data fra serveren for det første diagram
-fetch('http://localhost:3000/chart1')
-    .then(response => {
-if (!response.ok)
-    throw new Error('Network response was not ok ' + response.statusText); // Tjek om der er fejl i serverens svar
-        return response.json();
-    })
-    .then(data => {
-        const labels = data.map(item => item.category);  // Categories for the x-axis
-        const values = data.map(item => item.total_interactions);  // Total interactions for the y-axis
 
-        const ctx = document.querySelector('#chart1').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Total Interactions by Category',
-                    data: values,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
+// Denne sektion henter data fra serveren til det første diagram (chart1)
+
+fetch('http://localhost:3000/chart1') // Sender en GET-anmodning til den lokale servers /chart1-endpoint for at hente diagramdata
+
+    .then(response => { // Behandler det svar, vi har modtaget fra serveren
+
+if (!response.ok) // Tjekker, om svaret er mislykket (f.eks. 404 eller 500 fejl)
+
+    throw new Error('Netværkssvar var ikke i orden ' + response.statusText); // Kaster en fejl, hvis serverens svar er ugyldigt
+
+        return response.json(); // Konverterer svaret til JSON, da serveren forventes at returnere data i JSON-format
+    })
+    .then(data => { // Behandler de JSON-data, der blev modtaget fra serveren
+
+        const labels = data.map(item => item.category);  // Uddrager kategorier fra dataene til brug som x-akseetiketter
+
+        const values = data.map(item => item.total_interactions);  // Uddrager totalinteraktioner fra dataene til y-akseværdier
+
+        const ctx = document.querySelector('#chart1').getContext('2d'); // Vælger canvas-elementet for chart1 og henter dets tegnekontekst
+
+        new Chart(ctx, { // Opretter en ny Chart.js instans for at vise diagrammet
+
+            type: 'bar', // Angiver diagramtypen som "bar"
+
+            data: { // Data for diagrammet, inklusive etiketter og datasæt
+
+                labels: labels, // Sætter x-akseetiketterne ved hjælp af de uddragne kategoridata
+
+                datasets: [{ // Definerer datasættet, der bruges til diagrammet
+
+                    label: 'Total interaktioner pr. kategori', // Forklarende tekst for datasættet
+
+                    data: values, // Y-akseværdier (total interaktioner) for hver kategori
+
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Halvgennemsigtig blå for søjlebakgrunde
+
+                    borderColor: 'rgba(54, 162, 235, 1)', // Blå kant til søjler
+
+                    borderWidth: 1 // Tykkelse af søjlekant
                 }]
-            },
-            options: {
-                responsive: true,
-                scales: {
+            }, // End of datasets array
+
+            options: { // Konfigurationsindstillinger for diagrammets udseende og opførsel
+
+                responsive: true, // Gør diagrammet responsivt, så det tilpasser sig forskellige skærmstørrelser
+
+                scales: { // Indstillinger for x- og y-akse skaler
+
 y: { // Konfiguration for y-aksen
-                        beginAtZero: true,
-grid: {
-display: false // Fjerner gridlines på y-aksen
+
+                        beginAtZero: true, // Starter skalaen fra nul
+
+grid: { // Gridline-indstillinger for y-aksen
+display: false // Skjuler gridlines på y-aksen
 }
                     },
 x: { // Konfiguration for x-aksen
-                        grid: {
-                            display: false // Fjerner gridlines
+
+                        grid: { // Gridline-indstillinger for x-aksen
+                            display: false // Skjuler gridlines
                         }
                     }
                 },
@@ -96,31 +121,46 @@ fetch('http://localhost:3000/chart2')
     .catch(error => console.error('Error fetching data for Chart 2:', error));
 
 
+// Array der indeholder id'erne for de forskellige diagramcontainere.
+// Det bruges til at styre hvilke diagrammer/kontainere der er synlige, når der skiftes mellem dem.
 const chartDivs = ["chart1-container", "chart2-container", "chart3-container"];
 
 // Function to toggle charts
+// Funktion til at vise det valgte diagram og skjule de andre.
+// Parameter 'chartId' er navnet/id'et på det diagram, der ønskes vist.
 function toggleChart(chartId) {
+
+    // Henter alle elementer med klassen 'chart-container', som indeholder diagrammerne.
     const chartContainers = document.querySelectorAll('.chart-container'); // All chart divs
+
+    // Skjuler alle diagramcontainere ved at sætte deres CSS 'display' stil til 'none'.
     chartContainers.forEach(container => {
         container.style.display = 'none'; // Hide all charts
     });
 
+    // Identificerer og viser den valgte container vha. dens id.
     const selectedContainer = document.getElementById(chartId + '-container');
     selectedContainer.style.display = 'block'; // Show the selected chart
 
+    // Hvis det valgte diagram er 'chart3', håndteres Leaflet-kortet (map).
     if (chartId === 'chart3') {
+
+        // Tjekker, om kortet allerede er initialiseret. Hvis ikke, initialiseres det.
         if (!map) {
             initMap(); // Initialize the map if it hasn't been initialized yet
         } else {
+            // Sikrer, at kortet fornyer sin størrelse korrekt efter det bliver synligt.
             setTimeout(() => map.invalidateSize(), 200); // Delay to ensure the container is fully visible
         }
     }
 }
 
 //Chart 3
+// Global variabel til at holde Leaflet-kortet, så det kan genbruges og refereres flere steder.
 let map; // Declare the map variable globally
 
 // Initialize the map for Chart 3
+// Funktion til at initialisere Leaflet-kortet for Chart 3. Konfigurerer lag, indstillinger og hover-logik.
 function initMap() {
     fetch('http://localhost:3000/chart3') // Dine kortdata
         .then(response => {
@@ -128,15 +168,17 @@ function initMap() {
             return response.json(); // Data der kommer fra din chart3 endpoint
         })
         .then(data => {
+            // Opretter kort-elementet med specifikke konfigurationsindstillinger som deaktiverede zoom-handlinger.
             map = L.map('map', {
                 scrollWheelZoom: false,
                 doubleClickZoom: false,
                 boxZoom: false,
                 keyboard: false,
                 zoomControl: true,
+            // Sætter standardvisningen af kortet til en specifik koordinat og zoomniveau.
             }).setView([49.5260, 16.2551], 4);
 
-            // Add a legend to the map
+            // Tilføjer en brugerdefineret legende til kortet i nederste venstre hjørne.
             const legend = L.control({position: 'bottomleft'});
 
             legend.onAdd = function () {
@@ -160,6 +202,7 @@ function initMap() {
             // Indlæs GeoJSON for landenes grænser og datapunkter
             fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
                 .then(response => response.json())
+                // Loader et GeoJSON-lag, som indeholder konturdata for lande, og definerer deres visualisering.
                 .then(geojson => {
                     L.geoJSON(geojson, {
                         style: function (feature) {
@@ -172,6 +215,7 @@ function initMap() {
                             };
                         },
                         onEachFeature: function (feature, layer) {
+                            // Gemt originalnavn for hver country-feature fra GeoJSON-data.
                             let originalName = feature.properties.name; // Store the original name
 if (originalName === "United Kingdom") {
     const displayName = "Wales"; // Temporarily use "Wales" for visual purposes
@@ -210,6 +254,7 @@ if (originalName === "United Kingdom") {
 }
 
 // Helper function to get the color for each post type
+// Hjælpefunktion der returnerer den tilsvarende farve for en specifik 'post type'.
 function getPostTypeColor(postType) {
     const postTypeColors = {
         video: 'royalblue',
