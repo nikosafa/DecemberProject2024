@@ -1,13 +1,12 @@
-
 // Denne sektion henter data fra serveren til det første diagram (chart1)
 
 fetch('http://localhost:3000/chart1') // Sender en GET-anmodning til den lokale servers /chart1-endpoint for at hente diagramdata
 
     .then(response => { // Behandler det svar, vi har modtaget fra serveren
 
-if (!response.ok) // Tjekker, om svaret er mislykket (f.eks. 404 eller 500 fejl)
+        if (!response.ok) // Tjekker, om svaret er mislykket (f.eks. 404 eller 500 fejl)
 
-    throw new Error('Netværkssvar var ikke i orden ' + response.statusText); // Kaster en fejl, hvis serverens svar er ugyldigt
+            throw new Error('Netværkssvar var ikke i orden ' + response.statusText); // Kaster en fejl, hvis serverens svar er ugyldigt
 
         return response.json(); // Konverterer svaret til JSON, da serveren forventes at returnere data i JSON-format
     })
@@ -47,15 +46,15 @@ if (!response.ok) // Tjekker, om svaret er mislykket (f.eks. 404 eller 500 fejl)
 
                 scales: { // Indstillinger for x- og y-akse skaler
 
-y: { // Konfiguration for y-aksen
+                    y: { // Konfiguration for y-aksen
 
                         beginAtZero: true, // Starter skalaen fra nul
 
-grid: { // Gridline-indstillinger for y-aksen
-display: false // Skjuler gridlines på y-aksen
-}
+                        grid: { // Gridline-indstillinger for y-aksen
+                            display: false // Skjuler gridlines på y-aksen
+                        }
                     },
-x: { // Konfiguration for x-aksen
+                    x: { // Konfiguration for x-aksen
 
                         grid: { // Gridline-indstillinger for x-aksen
                             display: false // Skjuler gridlines
@@ -121,67 +120,55 @@ fetch('http://localhost:3000/chart2')
     .catch(error => console.error('Error fetching data for Chart 2:', error));
 
 
-// Array der indeholder id'erne for de forskellige diagramcontainere.
-// Det bruges til at styre hvilke diagrammer/kontainere der er synlige, når der skiftes mellem dem.
+// Toggle chart sektion
+// Bruges til at styre hvilke diagrammer/kontainere der er synlige, når der skiftes mellem dem.
 const chartDivs = ["chart1-container", "chart2-container", "chart3-container"];
 
-// Function to toggle charts
-// Funktion til at vise det valgte diagram og skjule de andre.
-// Parameter 'chartId' er navnet/id'et på det diagram, der ønskes vist.
+// Function to toggle charts - Parameter 'chartId' er navnet/id'et på det diagram, der ønskes vist.
 function toggleChart(chartId) {
+    const chartContainers = document.querySelectorAll('.chart-container'); // Gets all chart divs
 
-    // Henter alle elementer med klassen 'chart-container', som indeholder diagrammerne.
-    const chartContainers = document.querySelectorAll('.chart-container'); // All chart divs
-
-    // Skjuler alle diagramcontainere ved at sætte deres CSS 'display' stil til 'none'.
-    chartContainers.forEach(container => {
+    chartContainers.forEach(container => {  // Skjuler alle diagramcontainere ved at sætte deres CSS 'display' stil til 'none'.
         container.style.display = 'none'; // Hide all charts
     });
 
-    // Identificerer og viser den valgte container vha. dens id.
-    const selectedContainer = document.getElementById(chartId + '-container');
+    const selectedContainer = document.getElementById(chartId + '-container'); // Identificerer og viser den valgte container vha. dens id.
     selectedContainer.style.display = 'block'; // Show the selected chart
 
-    // Hvis det valgte diagram er 'chart3', håndteres Leaflet-kortet (map).
-    if (chartId === 'chart3') {
+    // Her Håndteres chart3 leaflet kort
+    if (chartId === 'chart3') { // Hvis det valgte diagram er 'chart3', håndteres Leaflet-kortet (map).
 
-        // Tjekker, om kortet allerede er initialiseret. Hvis ikke, initialiseres det.
-        if (!map) {
-            initMap(); // Initialize the map if it hasn't been initialized yet
+        if (!map) { // Tjekker, om kortet allerede er initialiseret. Hvis ikke, initialiseres det.
+            initMap();
         } else {
-            // Sikrer, at kortet fornyer sin størrelse korrekt efter det bliver synligt.
+            // Sikrer, at kortet får korrekt størrelse efter det bliver synligt, da det har display: none.
             setTimeout(() => map.invalidateSize(), 200); // Delay to ensure the container is fully visible
         }
     }
 }
 
-//Chart 3
-// Global variabel til at holde Leaflet-kortet, så det kan genbruges og refereres flere steder.
+//Chart 3 - Kortet
 let map; // Declare the map variable globally
 
-// Initialize the map for Chart 3
 // Funktion til at initialisere Leaflet-kortet for Chart 3. Konfigurerer lag, indstillinger og hover-logik.
 function initMap() {
-    fetch('http://localhost:3000/chart3') // Dine kortdata
+    fetch('http://localhost:3000/chart3')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
-            return response.json(); // Data der kommer fra din chart3 endpoint
+            return response.json(); // Data der kommer fra chart3 endpoint
         })
         .then(data => {
-            // Opretter kort-elementet med specifikke konfigurationsindstillinger som deaktiverede zoom-handlinger.
-            map = L.map('map', {
+            map = L.map('map', {  // Opretter kort-elementet med konfigurationsindstillinger som deaktiverer zoom-handlinger.
                 scrollWheelZoom: false,
                 doubleClickZoom: false,
                 boxZoom: false,
                 keyboard: false,
                 zoomControl: true,
-            // Sætter standardvisningen af kortet til en specifik koordinat og zoomniveau.
-            }).setView([49.5260, 16.2551], 4);
+            }).setView([49.5260, 16.2551], 4); // Sætter standardvisningen af kortet til en specifik koordinat og zoomniveau.
 
-            // Tilføjer en brugerdefineret legende til kortet i nederste venstre hjørne.
-            const legend = L.control({position: 'bottomleft'});
+            const legend = L.control({position: 'bottomleft'}); // Tilføjer en brugerdefineret legend til kortet.
 
-            legend.onAdd = function () {
+            legend.onAdd = function () { //??
                 const div = L.DomUtil.create('div', 'legend');
                 div.innerHTML = `
                     <h4>Posttype most interacted with</h4>
@@ -192,7 +179,6 @@ function initMap() {
             };
             legend.addTo(map);
 
-            // Add OpenStreetMap tile layer
             // Tilføj OpenStreetMap lag
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors',
@@ -217,17 +203,18 @@ function initMap() {
                         onEachFeature: function (feature, layer) {
                             // Gemt originalnavn for hver country-feature fra GeoJSON-data.
                             let originalName = feature.properties.name; // Store the original name
-if (originalName === "United Kingdom") {
-    const displayName = "Wales"; // Temporarily use "Wales" for visual purposes
-    const countryData = data.find(c => c.country.trim().toLowerCase() === originalName.trim().toLowerCase());
-    if (countryData) {
-        layer.bindPopup(`
-            <b>${displayName}</b><br> 
-            Post Type: ${countryData.post_type}<br>
-            Total Interactions: ${countryData.total_interactions}`);
-    }
-    return; // Skip rest of logic for United Kingdom
-}
+                            // Hvis navnet på landet er UK så ændres det til Wales
+                            if (originalName === "United Kingdom") {
+                                const displayName = "Wales"; //Use "Wales" for visual purposes
+                                const countryData = data.find(c => c.country.trim().toLowerCase() === originalName.trim().toLowerCase());
+                                if (countryData) {
+                                    layer.bindPopup(`
+                                            <b>${displayName}</b><br> 
+                                            Post Type: ${countryData.post_type}<br>
+                                            Total Interactions: ${countryData.total_interactions}`);
+                                                                }
+                                return; // Skip rest of logic for United Kingdom
+                            }
                             const countryData = data.find(c => c.country.trim().toLowerCase() === originalName.trim().toLowerCase());
                             if (countryData) {
                                 layer.bindPopup(`
@@ -253,7 +240,6 @@ if (originalName === "United Kingdom") {
         .catch(error => console.error('Error initializing chart 3 map:', error));
 }
 
-// Helper function to get the color for each post type
 // Hjælpefunktion der returnerer den tilsvarende farve for en specifik 'post type'.
 function getPostTypeColor(postType) {
     const postTypeColors = {
